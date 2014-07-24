@@ -41,11 +41,10 @@
 
    new Slide({
        slides: [
-                   "/images/fengxinzi.jpg",
-                   "/images/tangyiwen.jpg"
+                   "http://idianming.com.cn/images/fengxinzi.jpg",
+                   "http://idianming.com.cn/images/tangyiwen.jpg"
        ],
        targets: [
-                 "www.huajiatangyiwen.com",
                  "www.huajiatangyiwen.com",
                  "www.huajiatangyiwen.com"
        ]
