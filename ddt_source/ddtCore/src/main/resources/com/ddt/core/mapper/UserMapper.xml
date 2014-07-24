@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ddt.core.mapper.UserMapper">
+    
+    <sql id="user_base_column">
+          id	id
+        , user_name	userName
+        , password	password
+        , wx_number	wxName
+        , mobile	mobile
+        , create_time	createTime
+    </sql>
+    
+    <select id="getUserByName" resultType="User" parameterType="java.util.Map">
+        SELECT
+        <include refid="user_base_column"/>
+        FROM	ddt_user
+        WHERE	user_name = #{username}
+    </select>
+    
+    <select id="getUserByWxNumber" resultType="User" parameterType="java.util.Map">
+        SELECT
+        <include refid="user_base_column"/>
+        FROM	ddt_user
+        WHERE	wx_number = #{wx}
+    </select>
+    
+    <select id="getWxUserByName" resultType="User" parameterType="java.util.Map">
+        SELECT
+        <include refid="user_base_column"/>
+        FROM	ddt_wx_user
+        WHERE	user_name = #{username}
+    </select>
+    
+    <select id="getWxUserByMobile" resultType="User" parameterType="java.util.Map">
+        SELECT
+        <include refid="user_base_column"/>
+        FROM	ddt_wx_user
+        WHERE	mobile = #{mobile}
+    </select>
+    
+    <select id="getWxUserByWxNumber" resultType="User" parameterType="java.util.Map">
+         SELECT
+        <include refid="user_base_column"/>
+        FROM	ddt_wx_user
+        WHERE	wx_number = #{wx}
+    </select>
+    
+    <select id="getUserByWithNullWx" resultType="User" parameterType="java.util.Map">
+        SELECT
+        <include refid="user_base_column"/>
+        FROM	ddt_user
+        WHERE	user_name = #{username}
+        		AND (wx_number is null OR wx_number = '')
+        LIMIT 1
+    </select>
+    
+    <insert id="insertUser" parameterType="User" keyColumn="id" keyProperty="id">
+        <selectKey keyProperty="id" resultType="long">
+			SELECT LAST_INSERT_ID() AS id FROM dual
+		</selectKey>
+		INSERT INTO ddt_user(id, user_name, password, wx_number, mobile, create_time)
+		VALUES(#{id}, #{userName}, md5(#{password}), #{wxName}, #{mobile}, NOW())
+    </insert>
+    
+     <insert id="insertWxUser" parameterType="User" keyColumn="id" keyProperty="id">
+        <selectKey keyProperty="id" resultType="long">
+			SELECT LAST_INSERT_ID() AS id FROM dual
+		</selectKey>
+		INSERT INTO ddt_wx_user(id, user_name, wx_number, mobile, create_time)
+		VALUES(#{id}, #{userName}, #{wxName}, #{mobile}, NOW())
+    </insert>
+    
+    <select id="getUserRoles" parameterType="java.util.Map" resultType="Role">
+        SELECT	  a.id	id
+        		, a.name	name
+        FROM	  ddt_role a
+        		, ddt_user_role b
+        WHERE	a.id = b.role_id
+        		AND b.user_id = #{id}
+    </select>
+    
+    <update id="updateUser" parameterType="User">
+        UPDATE	  ddt_user
+        SET		  user_name = #{userName}
+        		, password = md5(#{password})
+		        , wx_number = #{wxName}
+		        , mobile = #{mobile}
+		WHERE	id = #{id}
+    </update>
+    
+    <update id="updateWxUser" parameterType="User">
+        UPDATE	  ddt_wx_user
+        SET		  user_name = #{userName}
+		        , wx_number = #{wxName}
+		        , mobile = #{mobile}
+		        , password = md5(#{password})
+		WHERE	id = #{id}
+    </update>
+    
+    <select id="getRollBookUserList" parameterType="java.util.Map" resultType="User">
+        SELECT    a.id	id
+        		, a.user_name	userName
+		        , a.password	password
+		        , a.wx_number	wxName
+		        , a.mobile	mobile
+		        , a.create_time	createTime
+        FROM	  ddt_user a
+        		, ddt_roll_book_user b
+        WHERE	a.id = b.user_id
+        		AND b.book_id = #{rollBookId}
+        <if test="limit > 0">
+            LIMIT #{limit}
+            OFFSET	#{offset}
+        </if>
+    </select>
+    
+    <delete id="deleteUserById" parameterType="java.util.Map">
+        DELETE FROM ddt_user WHERE id = #{id}
+    </delete>
+    
+    <select id="getRollBookUser" parameterType="java.util.Map" resultType="RollBookUser">
+        SELECT	  book_id		bookId
+        		, user_id		userId
+        FROM	ddt_roll_book_user
+        WHERE	book_id = #{rollBookId}
+        		AND user_id = #{userId} 
+    </select>
+    
+    <insert id="insertRollBookUser" parameterType="RollBookUser">
+        INSERT INTO ddt_roll_book_user(book_id, user_id)
+        VALUES(#{bookId}, #{userId})
+    </insert>
+    
+    <delete id="deleteRollBookUserById" parameterType="java.util.Map">
+        DELETE 	FROM ddt_roll_book_user
+        WHERE	book_id = #{bookId}
+        		AND user_id = #{userId}
+    </delete>
+    
+    <select id="getUserByNameAndInfoId" parameterType="java.util.Map" resultType="User">
+        SELECT    a.id	id
+        		, a.user_name	userName
+		        , a.password	password
+		        , a.wx_number	wxName
+		        , a.mobile	mobile
+		        , a.create_time	createTime
+		FROM	  ddt_user a
+				, ddt_roll_book_info b
+				, ddt_roll_book_user c
+		WHERE	a.user_name = #{userName}
+				AND a.id = c.user_id
+				AND c.book_id = b.roll_book_id
+				AND b.id = #{infoId}
+				LIMIT 1
+    </select>
+</mapper>

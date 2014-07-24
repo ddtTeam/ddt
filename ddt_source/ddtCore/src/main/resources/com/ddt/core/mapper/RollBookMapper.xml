@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ddt.core.mapper.RollBookMapper">
+    
+    <sql id="roll_book_base_column">
+          id	id
+        , user_id	userId
+        , name		name
+        , valid_start_time	validStartTime
+        , valid_end_time	validEndTime
+        , roll_start_time	rollStartTime
+        , roll_end_time		rollEndTime
+        , roll_code			rollCode
+        , user_count		userCount
+        , group_id			groupId
+    </sql>
+    
+    <select id="getRollBookList" parameterType="java.util.Map" resultType="RollBook">
+        SELECT
+        <include refid="roll_book_base_column"/>
+        FROM	ddt_roll_book
+        WHERE	user_id = #{userId}
+        <if test="queryValue != null and queryValue != ''">
+            AND name LIKE '%${queryValue}%'
+        </if>
+        <if test="limit > 0">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+    
+    <select id="getRollBookCount" parameterType="java.util.Map" resultType="int">
+        SELECT	COUNT(*)
+       	FROM	ddt_roll_book
+       	WHERE	user_id = #{userId}
+       	<if test="queryValue != null and queryValue != ''">
+            AND name LIKE '%${queryValue}%'
+        </if>
+    </select>
+    
+    <select id="getRollBookById" parameterType="java.util.Map" resultType="RollBook">
+        SELECT
+        <include refid="roll_book_base_column"/>
+        FROM	ddt_roll_book
+        WHERE	id = #{id}
+        		AND user_id = #{userId}
+    </select>
+    
+    
+    <insert id="addRollBook" parameterType="RollBook" keyColumn="id" keyProperty="id">
+        <selectKey keyProperty="id" resultType="long">
+            SELECT LAST_INSERT_ID() AS id FROM DUAL
+        </selectKey>
+        INSERT INTO ddt_roll_book(id, user_id, name, valid_start_time, valid_end_time, user_count, group_id)
+        VALUES(#{id}, #{userId}, #{name}, #{validStartTime}, #{validEndTime}, #{userCount}, #{groupId})
+    </insert>
+    
+    <insert id="addRollBookUser" parameterType="RollBookUser">
+        INSERT INTO ddt_roll_book_user(book_id, user_id) VALUES(#{bookId}, #{userId})
+    </insert>
+    
+    <update id="updateRollBook" parameterType="RollBook">
+        UPDATE 	  ddt_roll_book
+        SET		  name = #{name}
+        		, valid_start_time = #{validStartTime}
+        		, valid_end_time = #{validEndTime}
+        		, user_count = #{userCount}
+        WHERE	id = #{id}
+        		AND user_id = #{userId}
+    </update>
+    
+    <delete id="deleteRollBookUser" parameterType="java.util.Map">
+        DELETE FROM	ddt_roll_book_user
+        WHERE	book_id = #{rollBookId}
+    </delete>
+    
+    <delete id="deleteRollBook" parameterType="java.util.Map">
+        DELETE FROM	ddt_roll_book
+        WHERE	id = #{rollBookId}
+        		AND user_id = #{userId}
+    </delete>
+    
+    <select id="getRollInfoList" parameterType="java.util.Map" resultType="RollBook">
+        SELECT	  a.id	id
+        		, b.id	rollInfoId
+        		, a.name	name
+        		, a.valid_start_time	validStartTime
+        		, a.valid_end_time		validEndTime
+        		, b.roll_start_time		rollStartTime
+        		, b.roll_end_time		rollEndTime
+        		, b.roll_code			rollCode
+        		, b.user_count			userCount
+        FROM	  ddt_roll_book		a
+        		, ddt_roll_book_info	b
+        WHERE	a.id = b.roll_book_id
+        		AND a.user_id = b.user_id
+        		AND a.id = #{rollBookId}
+        		AND a.user_id = #{userId}
+    </select>
+    
+    <select id="getUserRollInfoList" parameterType="java.util.Map" resultType="UserRollInfo">
+        SELECT	  a.roll_book_info_id	rollBookInfoId
+        		, c.user_name			username
+        		, c.mobile				mobile
+        		, c.id 					userId
+        		, a.distance			distance
+        		, a.roll_time			rollTime
+        		, a.roll_info			info
+        FROM	ddt_roll_book_info b LEFT JOIN ddt_user_roll_info a ON a.roll_book_info_id = b.id
+        		, ddt_user 	c
+        WHERE	b.id = #{rollInfoId}
+        		AND b.user_id = #{userId}
+        		AND a.user_id = c.id
+        <if test="limit > 0">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+    
+    <select id="getUserRollInfoCount" parameterType="java.util.Map" resultType="int">
+        SELECT 	COUNT(*)
+        FROM	ddt_user_roll_info
+        WHERE	roll_book_info_id = #{rollInfoId}
+        <if test="unrolled == true">
+            AND distance = -1 AND (roll_info = null OR roll_info = '')
+        </if>
+    </select>
+</mapper>
