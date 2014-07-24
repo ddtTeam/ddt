@@ -117,6 +117,12 @@
         </if>
     </select>
     
+    <select id="getRollBookUserCount" parameterType="java.util.Map" resultType="int">
+        SELECT 	COUNT(*)
+        FROM	ddt_roll_book_user
+        WHERE	book_id = #{rollBookId}
+    </select>
+    
     <delete id="deleteUserById" parameterType="java.util.Map">
         DELETE FROM ddt_user WHERE id = #{id}
     </delete>

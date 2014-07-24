@@ -1,5 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+<#include "/common/pager.ftl">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title></title>
@@ -16,19 +17,16 @@
                   <input type="hidden" id="cur_page">
                   <input type="hidden" id="show_per_page">
                   <table class="tableData">
-                    <thead>
-                        <tr class="">
-                            <th style="width:10%">名称</th>
-                            <th style="width:16%">开始时间</th>
-                            <th style="width:16%">结束时间</th>
-                            <th style="width:16%">点名开始时间</th>
-                            <th style="width:16%">点名结束时间</th>
-                            <th style="width:11%">总人数</th>
-                            <th style="width:11%">随机码</th>
-                            <th style="width:20%" colspan=2>操作</th>
-                        </tr>
-                    </thead>
-                    <tbody id="content_table">
+                    <tr class="">
+                        <th style="width:10%">名称</th>
+                        <th style="width:16%">开始时间</th>
+                        <th style="width:16%">结束时间</th>
+                        <th style="width:16%">点名开始时间</th>
+                        <th style="width:16%">点名结束时间</th>
+                        <th style="width:11%">总人数</th>
+                        <th style="width:11%">随机码</th>
+                        <th style="width:20%" colspan=2>操作</th>
+                    </tr>
                     <#if rollBooks?? && rollBooks?size &gt; 0>
                     	<#list rollBooks as rollBook>
                     		<tr>
@@ -44,16 +42,8 @@
                         	</tr>
                     	</#list>
                     </#if>
-                    </tbody>
                   </table>
-                  <div id="page_nav">
-                    <a href="">首页</a>
-                    <a href="">上一页</a>
-                    <a href="" class="page currentPage">1</a>
-                    <a href="" class="page">2</a>
-                    <a href="">下一页</a>
-                    <a href="">末页</a>
-                  </div>
+                  <@lpager total=totalPage index=page url=pageUrl />
                 </div>
 
             </div>

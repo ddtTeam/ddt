@@ -53,4 +53,6 @@ public interface UserService {
 
 	User getWxUserByWxNumber(String wx);
 
+	int getRollBookUserCount(long rollBookId);
+
 }

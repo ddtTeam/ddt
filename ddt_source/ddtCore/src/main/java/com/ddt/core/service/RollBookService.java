@@ -43,4 +43,6 @@ public interface RollBookService {
 
 	int getUserRollInfoCount(long id, long rollBookId, boolean unrolled);
 
+	int getRollInfoCount(long userId, long rollBookId);
+
 }

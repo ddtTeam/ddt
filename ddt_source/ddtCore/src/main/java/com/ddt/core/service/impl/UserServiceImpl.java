@@ -136,4 +136,11 @@ public class UserServiceImpl implements UserService {
 		return userMapper.getWxUserByWxNumber(params);
 	}
 
+	@Override
+	public int getRollBookUserCount(long rollBookId) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("rollBookId", rollBookId);
+		return userMapper.getRollBookUserCount(params);
+	}
+
 }

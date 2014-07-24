@@ -73,7 +73,7 @@ public class RollBookController extends BaseController {
 		view.addObject("rollBooks", rollBooks);
 		view.addObject("query", queryValue);
 		view.addObject("page", page);
-		view.addObject("totalPage", (int) Math.round(count * 1.0 / pagination.getLimit()));
+		view.addObject("totalPage", (int) Math.ceil(count * 1.0 / pagination.getLimit()));
 		view.addObject("pageUrl", "/rollbook/list?query=" + queryValue);
 		return view;
 	}
@@ -102,11 +102,13 @@ public class RollBookController extends BaseController {
 		}
 		
 		List<User> users = userService.getRollBookUserList(rollBookId, pagination.getLimit(), pagination.getOffset());
+		int count = userService.getRollBookUserCount(rollBookId);
 		
 		view.addObject("users", users);
 		view.addObject("page", page);
 		view.addObject("rid", rollBookId);
-		
+		view.addObject("totalPage", (int) Math.ceil(count * 1.0 / pagination.getLimit()));
+		view.addObject("pageUrl", "/rollbook/userlist?rid=" + rollBookId);
 		
 		return view;
 	}
@@ -289,9 +291,12 @@ public class RollBookController extends BaseController {
 		long userId = getUserId();
 		
 		List<RollBook> rollBooks = rollBookService.getRollInfoList(userId, rollBookId, pagination.getLimit(), pagination.getOffset());
+		int count = rollBookService.getRollInfoCount(userId, rollBookId);
 		
 		view.addObject("rollBooks", rollBooks);
 		view.addObject("page", page);
+		view.addObject("totalPage", (int) Math.ceil(count * 1.0 / pagination.getLimit()));
+		view.addObject("pageUrl", "/rollbook/rolllist?rid=" + rollBookId);
 		
 		return view;
 	}
@@ -312,9 +317,12 @@ public class RollBookController extends BaseController {
 		long userId = getUserId();
 		
 		List<UserRollInfo> userRollInfos = rollBookService.getUserRollInfoList(userId, rollInfoId, pagination.getLimit(), pagination.getOffset());
+		int count = rollBookService.getUserRollInfoCount(userId, rollInfoId, false);
 		
 		view.addObject("userRollInfos", userRollInfos);
 		view.addObject("page", page);
+		view.addObject("totalPage", (int) Math.ceil(count * 1.0 / pagination.getLimit()));
+		view.addObject("pageUrl", "/rollbook/userrollinfo?rid=" + rollInfoId);
 		
 		return view;
 	}

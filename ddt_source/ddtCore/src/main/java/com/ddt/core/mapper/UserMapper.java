@@ -53,4 +53,6 @@ public interface UserMapper {
 	User getUserByNameAndInfoId(Map<String, Object> params);
 
 	User getWxUserByWxNumber(Map<String, Object> params);
+
+	int getRollBookUserCount(Map<String, Object> params);
 }

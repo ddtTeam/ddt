@@ -99,6 +99,13 @@
         		AND a.user_id = #{userId}
     </select>
     
+    <select id="getRollInfoCount" parameterType="java.util.Map" resultType="int">
+        SELECT	COUNT(*)
+        FROM	ddt_roll_book_info
+        WHERE	roll_book_id = #{rollBookId}
+        		AND user_id = #{userId}
+    </select>
+    
     <select id="getUserRollInfoList" parameterType="java.util.Map" resultType="UserRollInfo">
         SELECT	  a.roll_book_info_id	rollBookInfoId
         		, c.user_name			username
