@@ -4,7 +4,6 @@
     <link type="text/css" rel="stylesheet" href="css/login.css"  />
     <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="js/comm.js"></script>
-    <script src="js/slide-banner.js"></script>
     <script type="text/javascript">
         document.onkeydown = function(e) {
             // 兼容FF和IE和Opera
@@ -46,5 +45,6 @@
        <#include "/common/footer.ftl">
     </div>
 </div>
+<script src="js/slide-banner.js"></script>
 </body>
 </html>
