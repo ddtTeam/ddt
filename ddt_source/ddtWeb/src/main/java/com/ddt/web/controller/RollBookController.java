@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.ddt.core.bean.Pagination;
 import com.ddt.core.meta.RollBook;
 import com.ddt.core.meta.RollBookInfo;
 import com.ddt.core.meta.User;
@@ -60,18 +61,19 @@ public class RollBookController extends BaseController {
 		
 		String queryValue = StringUtils.trim(ServletRequestUtils.getStringParameter(request, "query", ""));
 		int page = ServletRequestUtils.getIntParameter(request, "page", 1);
-		int limit = ServletRequestUtils.getIntParameter(request, "limit", 20);
-		int offset = (page - 1) * limit;
+		
+		Pagination pagination = new Pagination();
+		pagination.setPage(page);
 		
 		long userId = getUserId();
 		
-		List<RollBook> rollBooks = rollBookService.getRollBookList(userId, queryValue, limit, offset);
+		List<RollBook> rollBooks = rollBookService.getRollBookList(userId, queryValue, pagination.getLimit(), pagination.getOffset());
 		int count = rollBookService.getRollBookCount(userId, queryValue);
 		
 		view.addObject("rollBooks", rollBooks);
 		view.addObject("query", queryValue);
 		view.addObject("page", page);
-		view.addObject("totalPage", (int) Math.round(count * 1.0 / limit));
+		view.addObject("totalPage", (int) Math.round(count * 1.0 / pagination.getLimit()));
 		view.addObject("pageUrl", "/rollbook/list?query=" + queryValue);
 		return view;
 	}
@@ -87,9 +89,10 @@ public class RollBookController extends BaseController {
 		ModelAndView view = getBaseView("rollbook/userlist");
 		
 		int page = ServletRequestUtils.getIntParameter(request, "page", 1);
-		int limit = ServletRequestUtils.getIntParameter(request, "limit", 20);
 		long rollBookId = ServletRequestUtils.getLongParameter(request, "rid", 0);
-		int offset = (page - 1) * limit;
+		
+		Pagination pagination = new Pagination();
+		pagination.setPage(page);
 		
 		long userId = getUserId();
 		
@@ -98,7 +101,7 @@ public class RollBookController extends BaseController {
 			return null;
 		}
 		
-		List<User> users = userService.getRollBookUserList(rollBookId, limit, offset);
+		List<User> users = userService.getRollBookUserList(rollBookId, pagination.getLimit(), pagination.getOffset());
 		
 		view.addObject("users", users);
 		view.addObject("page", page);
@@ -278,13 +281,14 @@ public class RollBookController extends BaseController {
 		ModelAndView view = getBaseView("rollbook/rolllist");
 		
 		int page = ServletRequestUtils.getIntParameter(request, "page", 1);
-		int limit = ServletRequestUtils.getIntParameter(request, "limit", 20);
 		long rollBookId = ServletRequestUtils.getLongParameter(request, "rid", 0);
-		int offset = (page - 1) * limit;
+		
+		Pagination pagination = new Pagination();
+		pagination.setPage(page);
 		
 		long userId = getUserId();
 		
-		List<RollBook> rollBooks = rollBookService.getRollInfoList(userId, rollBookId, limit, offset);
+		List<RollBook> rollBooks = rollBookService.getRollInfoList(userId, rollBookId, pagination.getLimit(), pagination.getOffset());
 		
 		view.addObject("rollBooks", rollBooks);
 		view.addObject("page", page);
@@ -300,13 +304,14 @@ public class RollBookController extends BaseController {
 		ModelAndView view = getBaseView("rollbook/userrollinfo");
 		
 		int page = ServletRequestUtils.getIntParameter(request, "page", 1);
-		int limit = ServletRequestUtils.getIntParameter(request, "limit", 20);
 		long rollInfoId = ServletRequestUtils.getLongParameter(request, "rid", 0);
-		int offset = (page - 1) * limit;
+		
+		Pagination pagination = new Pagination();
+		pagination.setPage(page);
 		
 		long userId = getUserId();
 		
-		List<UserRollInfo> userRollInfos = rollBookService.getUserRollInfoList(userId, rollInfoId, limit, offset);
+		List<UserRollInfo> userRollInfos = rollBookService.getUserRollInfoList(userId, rollInfoId, pagination.getLimit(), pagination.getOffset());
 		
 		view.addObject("userRollInfos", userRollInfos);
 		view.addObject("page", page);
@@ -322,13 +327,14 @@ public class RollBookController extends BaseController {
 		ModelAndView view = new ModelAndView();
 		
 		int page = ServletRequestUtils.getIntParameter(request, "page", 1);
-		int limit = ServletRequestUtils.getIntParameter(request, "limit", 20);
 		long rollInfoId = ServletRequestUtils.getLongParameter(request, "roll_info_id", 0);
-		int offset = (page - 1) * limit;
+		
+		Pagination pagination = new Pagination();
+		pagination.setPage(page);
 		
 		long userId = getUserId();
 		
-		List<UserRollInfo> userRollInfos = rollBookService.getUserRollInfoList(userId, rollInfoId, limit, offset);
+		List<UserRollInfo> userRollInfos = rollBookService.getUserRollInfoList(userId, rollInfoId, pagination.getLimit(), pagination.getOffset());
 		
 		view.addObject("userRollInfos", userRollInfos);
 		view.addObject("page", page);
