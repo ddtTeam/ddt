@@ -41,7 +41,7 @@
             </div>
         </div>
     </div>
-    <div id="footer">
+    <div class="footer">
        <#include "/common/footer.ftl">
     </div>
 </div>
