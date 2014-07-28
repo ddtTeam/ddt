@@ -47,6 +47,7 @@ html, body {
     background-image: url(/images/fengxinzi.jpg);
     background-position: 50% 0%;
     background-repeat: no-repeat no-repeat;
+    background-size:contain;
 }
 
 .main .loginbox{
