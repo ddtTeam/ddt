@@ -64,7 +64,7 @@
 	    	<img src="images/guide.jpg"/> 
 	    </div>
     </div>
-    <div id="class" class="footer" position: relative;>
+    <div id="class" class="footer" style="position:relative;">
        <#include "/common/footer.ftl">
     </div>
 </div>
