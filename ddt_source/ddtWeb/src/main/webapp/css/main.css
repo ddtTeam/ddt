@@ -93,12 +93,6 @@ tbody tr:hover{background: #a7cafa;color: #333;}
 #page_nav .page:hover{background: #6c3;color: #fff;}
 #page_nav a:hover{text-decoration: underline;}
 #page_nav .currentPage{background: #6c3;color: #fff;}
-#footer {
- height: 50px;
- background: #6c3;
- width:90%;
- margin: -50px auto 0;
-}
 .footer {
     height: 100px;
     background: #6c3;
@@ -109,6 +103,7 @@ tbody tr:hover{background: #a7cafa;color: #333;}
     margin-top: 20px;
     padding-top:20px;
     padding-bottom:20px;
+    margin: -50px auto 0;
 }
 
 .footer .qrcode {
