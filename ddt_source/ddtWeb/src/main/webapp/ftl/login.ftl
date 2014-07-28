@@ -29,8 +29,10 @@
                     <legend>登录</legend>
                     <p><input type="text" name="username" id="uname" class="inputTxt" placeholder="用户名"></p>
                     <p><input type="password" name="userpass" id="upwd" class="inputTxt" placeholder="密码"></p>
-                    <p><input type="button" class="inputBtn" value="登录" id="btn-login"></p>
-                    <a href="/guide" target="_blank">使用说明</a>
+                    <p>
+                    	<input type="button" class="inputBtn" value="登录" id="btn-login">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    	<a href="/guide" target="_blank">使用说明</a>
+                    </p>
                 </fieldset>
             </form>
         </div>

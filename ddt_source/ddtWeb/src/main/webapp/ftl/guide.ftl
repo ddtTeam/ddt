@@ -4,6 +4,24 @@
     <link type="text/css" rel="stylesheet" href="css/login.css"  />
     <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="js/comm.js"></script>
+    <style>
+    	.title {
+    		font-family:黑体;
+    		font-weight:bold; 
+    		font-size:20px; 
+    		margin-top:20px;
+    	}
+    	
+    	.detail {
+    		margin:10px 0 30px 0;
+    		font-size:14px;
+    		line-height:28px
+    	}
+    	
+    	.detail .first{
+    		text-indent:50px
+    	}
+    </style>
 </head>
 <body>
 <div class="wrapper">
