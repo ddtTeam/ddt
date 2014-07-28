@@ -16,4 +16,4 @@ html,body{height: 100%;width: 100%;}
 .goodinfo{color: #333;text-align:center}
 .goodli .point{color: #6c3;}
 
-.footer{bottom:0;width:100%;height: 50px;background: #6c3;}
+.footer{bottom:0;width:100%;height: 50px;background: #6c3;text-align:center}

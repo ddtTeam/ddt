@@ -98,6 +98,15 @@ public class LoginController {
 		return view;
 	}
 	
+	/**
+	 * 使用说明
+	 * @return
+	 */
+	@RequestMapping("guide")
+	public ModelAndView guide() {
+		ModelAndView view = new ModelAndView("guide");
+		return view;
+	}
 	
 	/**
 	 * 登出
