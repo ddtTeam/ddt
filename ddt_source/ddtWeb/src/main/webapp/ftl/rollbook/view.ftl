@@ -49,7 +49,7 @@
         <#include "/common/sidebar.ftl">
     </div>
 </div>
-<div id="footer">
+<div id="footer" class="footer">
     <#include "/common/footer.ftl">
 </div>
 </body>
