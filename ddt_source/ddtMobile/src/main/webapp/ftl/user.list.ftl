@@ -11,6 +11,7 @@
 <!--告诉设备忽略将页面中的数字识别为电话号码-->
 <meta content="telephone=no" name="format-detection" />
 <link type="text/css" rel="stylesheet" href="/css/main.css"  />
+<link rel="stylesheet" type="text/css" href="/css/pager.css">
 <script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
 <script type="text/javascript">
 	function showDiv(uid) {
@@ -70,6 +71,7 @@
 					</#list>
 				</#if>
 			</table>
+			<@lpager total=totalPage index=page url=pageUrl />
 		</div>
 	</div>
 </div>

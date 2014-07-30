@@ -74,6 +74,7 @@ public class RollBookController extends BaseController {
 		view.addObject("wx", wx);
 		view.addObject("page", page);
 		view.addObject("totalPage", (int) Math.ceil(count * 1.0 / limit));
+		view.addObject("pageUrl", "/rollbook/myrollbook?wx=" + wx);
 		
 		return view;
 	}
@@ -302,12 +303,16 @@ public class RollBookController extends BaseController {
 		User user = getUser(request);
 		
 		List<RollBook> rollBooks = rollBookService.getRollInfoList(user.getId(), rid, limit, offset);
+		int count = rollBookService.getRollInfoCount(user.getId(), rid);
+		
 		if (CollectionUtils.isNotEmpty(rollBooks)) {
 			view.addObject("name", rollBooks.get(0).getName());
 		}
 		view.addObject("rollBooks", rollBooks);
 		view.addObject("page", page);
+		view.addObject("totalPage", (int) Math.ceil(count * 1.0 / limit));
 		view.addObject("wx", wx);
+		view.addObject("pageUrl", "/rollbook/rolllist?wx=" + wx);
 		return view;
 	}
 	
@@ -325,6 +330,7 @@ public class RollBookController extends BaseController {
 		int limit = ServletRequestUtils.getIntParameter(request, "limit", 20);
 		long rollBookId = ServletRequestUtils.getLongParameter(request, "rid", 0);
 		int offset = (page - 1) * limit;
+		String wx = StringUtils.trim(ServletRequestUtils.getStringParameter(request, "wx", ""));
 		
 		User user = getUser(request);
 		
@@ -336,6 +342,8 @@ public class RollBookController extends BaseController {
 		view.addObject("page", page);
 		view.addObject("count", count);
 		view.addObject("unrolledCount", unrolledCount);
+		view.addObject("totalPage", (int) Math.ceil(count * 1.0 / limit));
+		view.addObject("pageUrl", "/rollbook/userlist?wx=" + wx + "&rid=" + rollBookId);
 		
 		return view;
 	}
