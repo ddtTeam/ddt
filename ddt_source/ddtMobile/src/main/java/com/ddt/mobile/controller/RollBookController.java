@@ -302,7 +302,9 @@ public class RollBookController extends BaseController {
 		User user = getUser(request);
 		
 		List<RollBook> rollBooks = rollBookService.getRollInfoList(user.getId(), rid, limit, offset);
-		
+		if (CollectionUtils.isNotEmpty(rollBooks)) {
+			view.addObject("name", rollBooks.get(0).getName());
+		}
 		view.addObject("rollBooks", rollBooks);
 		view.addObject("page", page);
 		view.addObject("wx", wx);

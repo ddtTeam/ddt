@@ -22,7 +22,7 @@
 			<div class="pointswrap">
 
 				<div class="leftpoint">
-					<p>点名点名情况</p>
+					<p>点名册"${name!''}"的点名情况</p>
 				</div>
 			</div>	
 			<div class="goodslist">
@@ -30,7 +30,6 @@
 					<#if rollBooks?? && rollBooks?size &gt; 0>
 						<#list rollBooks as rollBook>
 							<tr>
-								<td class="goodinfo">${rollBook.name}</td>
 								<td class="goodinfo"><#if rollBook.rollStartTime??>${rollBook.rollStartTime?string('yyyy-MM-dd HH:mm:ss')}</#if></td>
 								<td class="goodinfo"><#if rollBook.rollEndTime??>${rollBook.rollEndTime?string('yyyy-MM-dd HH:mm:ss')}</#if></td>
 								<td class="goodinfo">${rollBook.rollCode!''}</td>
