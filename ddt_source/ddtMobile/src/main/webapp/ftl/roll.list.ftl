@@ -1,4 +1,5 @@
 <html>
+<#include "/common/pager.ftl">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
