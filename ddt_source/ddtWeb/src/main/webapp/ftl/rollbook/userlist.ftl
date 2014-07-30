@@ -16,7 +16,7 @@
             <div class="content">
             	<div class="querydiv">
                     <span class="new">
-                    	<p class="query_btn"><a href="/rollbook/useradd?rid=${rid}"><input type="button" value="新增"></a></p>
+                    	<p class="query_btn"><a href="/rollbook/useradd?rid=${rid}"><input type="button" value="新增" class="go"></a></p>
                     </span>
                 </div>
                 <div class="query_res">

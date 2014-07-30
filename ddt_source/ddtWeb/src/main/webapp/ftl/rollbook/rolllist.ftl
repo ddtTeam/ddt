@@ -20,13 +20,13 @@
                   <table class="tableData">
                     <tr class="">
                         <th style="width:10%">名称</th>
-                        <th style="width:16%">开始时间</th>
-                        <th style="width:16%">结束时间</th>
-                        <th style="width:16%">点名开始时间</th>
-                        <th style="width:16%">点名结束时间</th>
-                        <th style="width:11%">总人数</th>
-                        <th style="width:11%">随机码</th>
-                        <th style="width:20%" colspan=2>操作</th>
+                        <th style="width:15%">开始时间</th>
+                        <th style="width:15%">结束时间</th>
+                        <th style="width:15%">点名开始时间</th>
+                        <th style="width:15%">点名结束时间</th>
+                        <th style="width:8%">总人数</th>
+                        <th style="width:8%">随机码</th>
+                        <th style="width:20%" colspan=3>操作</th>
                     </tr>
                     <#if rollBooks?? && rollBooks?size &gt; 0>
                     	<#list rollBooks as rollBook>
@@ -39,6 +39,7 @@
 	                            <td>${rollBook.userCount!'0'}</td>
 	                            <td>${rollBook.rollCode!''}</td>
 	                            <td><a href="/rollbook/userrollinfo?rid=${rollBook.rollInfoId}">点名情况</a></td>
+	                            <td><a href="/rollbook/downloadinfo?rid=${rollBook.rollInfoId}">下载</a></td>
 	                            <td><a href="/rollbook/delrollinfo?rid=${rollBook.rollInfoId}&page=${page}">删除</a></td>
                         	</tr>
                     	</#list>

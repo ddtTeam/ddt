@@ -33,11 +33,11 @@
                   <input type="hidden" id="show_per_page">
                   <table class="tableData">
                     <tr class="">
-                        <th style="width:10%">名称</th>
-                        <th style="width:16%">开始时间</th>
-                        <th style="width:16%">结束时间</th>
-                        <th style="width:11%">总人数</th>
-                        <th style="width:20%" colspan=5>操作</th>
+                        <th style="width:15%">名称</th>
+                        <th style="width:25%">开始时间</th>
+                        <th style="width:25%">结束时间</th>
+                        <th style="width:10%">总人数</th>
+                        <th style="width:25%" colspan=5>操作</th>
                     </tr>
                     <#if rollBooks?? && rollBooks?size &gt; 0>
                     	<#list rollBooks as rollBook>
