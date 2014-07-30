@@ -53,7 +53,11 @@ public class POIFillUtil {
 				} else if (data[j] instanceof Double) {
 					cell1.setCellValue((Double) data[j]);
 				} else {
-					cell1.setCellValue(String.valueOf(data[j]));
+					if (data[j] == null) {
+						cell1.setCellValue("");
+					} else {
+						cell1.setCellValue(String.valueOf(data[j]));
+					}
 				}
 				cell1.setCellStyle(bodyCellStyle);
 			}
