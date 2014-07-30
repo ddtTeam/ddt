@@ -63,7 +63,7 @@
     
      <update id="updateRollBookInfo" parameterType="RollBookInfo">
          UPDATE	ddt_roll_book_info
-         SET	roll_start_time = #{rollEndTime}
+         SET	roll_end_time = #{rollEndTime}
          WHERE	id = #{id}
      </update>
 </mapper>

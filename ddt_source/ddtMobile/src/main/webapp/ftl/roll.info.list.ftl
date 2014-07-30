@@ -35,7 +35,7 @@
 								<td class="goodinfo">${rollBook.rollCode!''}</td>
 								<td class="goodinfo">${rollBook.userCount!'0'}</td>
 								<td class="goodinfo"><a href="/rollbook/userlist?wx=${wx}&rid=${rollBook.rollInfoId}">名单</a></td>
-								<td class="goodinfo"><a href="/rollbook/end?wx=${wx}&rid=${rollBook.rollInfoId}">结束点名</a></td>
+								<td class="goodinfo"><#if rollBook.rollEndTime??>已结束<#else><a href="/rollbook/end?wx=${wx}&rid=${rollBook.rollInfoId}">结束点名</a></#if></td>
 							</tr>
 						</#list>
 					</#if>
