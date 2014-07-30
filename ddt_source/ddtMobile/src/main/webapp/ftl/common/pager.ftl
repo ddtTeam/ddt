@@ -23,37 +23,35 @@
 </#function>
 <#macro lpager total index=1 url="">
   <#if total??&&total&gt;1>
-  <div class="pagination-center">
-    <ul class="pagination">
+  <div id="page_nav">
   	<#if index==1>
-	  	<li class="disabled"><a href="#">&laquo;</a></li>
-        <li class="active"><a href="#">1</a></li>
+	  	<a href="javascript:void(0)">&laquo;</a>
+        <a class="page currentPage"  href="#">1</a>
   	<#else>
-  	    <li><a href="${supply(url)}page=${index-1}">&laquo;</a></li>
-        <li><a href="${supply(url)}page=1">1</a></li>
+  	    <a href="${supply(url)}page=${index-1}">&laquo;</a>
+        <a href="${supply(url)}page=1">1</a>
   	</#if>
   	<#local range=getRange(total,index)/>
   	<#if range?size&gt;0>
 	  	<#local start=range[0]/>
 	  	<#local end = range[1]/>
-	  	<#if start&gt;2><li class="disabled"><a href="#">...</a></li></#if>
+	  	<#if start&gt;2><a class="page" href="#">...</a></#if>
 	  	<#list start..end as x>
 	  		<#if index==x>
-	  			<li class="active"><a href="#">${x}</a></li>
+	  			<a class="page currentPage" href="#">${x}</a>
 	  		<#else>
-	  		    <li><a href="${supply(url)}page=${x}">${x}</a></li>
+	  		    <a class="page currentPage" href="${supply(url)}page=${x}">${x}</a>
 	  		</#if>
 	  	</#list>
-	  	<#if end&lt;total-1><li class="disabled"><a href="#">...</a></li></#if>
+	  	<#if end&lt;total-1><a class="page" href="#">...</a></#if>
 	</#if>
 	<#if index==total>
-	  	<li class="active"><a href="#">${total}</a></li>
-        <li class="disabled"><a href="#">&raquo;</a></li>
+	  	<a class="page currentPage" href="#">${total}</a>
+        <a class="page" href="#">&raquo;</a>
   	<#else>
-  		<li><a href="${supply(url)}page=${total}">${total}</a></li>
-        <li><a href="${supply(url)}page=${index+1}">&raquo;</a></li>
+  		<a href="${supply(url)}page=${total}">${total}</a>
+        <a href="${supply(url)}page=${index+1}">&raquo;</a>
   	</#if>
-  	</ul>
   </div>
   </#if>
 </#macro>

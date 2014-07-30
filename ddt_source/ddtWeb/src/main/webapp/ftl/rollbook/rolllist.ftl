@@ -5,6 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title></title>
 <link rel="stylesheet" type="text/css" href="/css/main.css">
+<link rel="stylesheet" type="text/css" href="/css/pager.css">
 <script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
 </head>
 <body>
