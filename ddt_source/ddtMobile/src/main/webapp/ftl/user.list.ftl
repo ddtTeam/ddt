@@ -37,46 +37,44 @@
 		<div class="banner"></div>
 	</div>
 	<div class="main">
-			
-			<div class="pointswrap">
-
-				<div class="leftpoint">
-					<p>点名册用户列表,共${count}人， 其中${unrolledCount}未参与点名</p>
-				</div>
-			</div>	
-			<div class="goodslist">
-				<table class="goodstable">
-					<#if users?? && users?size &gt; 0>
-						<#list users as user>
-							<tr>
-	                            <td>${user.username!''}</td>
-	                            <td>${user.mobile!''}</td>
-	                            <td><#if user.rollTime??>${user.rollTime?string('yyyy-MM-dd HH:mm:ss')}</#if></td>
-	                            <td>${user.distance}</td>
-	                            <td>${user.info!''}</td>
-	                            <td>
-	                            	<div style="display:none" id="reason_${user.userId}">
-	                            		<select id="selectValue_${user.userId}">
-	                            			<option value="事假">事假</option>
-	                            			<option value="病假">病假</option>
-	                            			<option value="未带手机">未带手机</option>
-	                            		</select>
-	                            		<a href="javascript:remark(${user.userId},${user.rollBookInfoId})">确定</a>
-	                            		<a href="javascript:cancelDiv(${user.userId})">取消</a>
-	                            	</div>
-	                            	<div id="remark_${user.userId}">
-	                            		<a href="javascript:showDiv(${user.userId})">备注</a>
-	                            	</div>
-	                            </td>
-                        	</tr>
-						</#list>
-					</#if>
-				</table>
+		<div class="pointswrap">
+			<div class="leftpoint">
+				<p>点名册用户列表,共${count}人， 其中${unrolledCount}人未参与点名</p>
 			</div>
+		</div>	
+		<div class="goodslist">
+			<table class="goodstable">
+				<#if users?? && users?size &gt; 0>
+					<#list users as user>
+						<tr>
+                            <td>${user.username!''}</td>
+                            <td>${user.mobile!''}</td>
+                            <td><#if user.rollTime??>${user.rollTime?string('yyyy-MM-dd HH:mm:ss')}</#if></td>
+                            <td>${user.distance}</td>
+                            <td>${user.info!''}</td>
+                            <td>
+                            	<div style="display:none" id="reason_${user.userId}">
+                            		<select id="selectValue_${user.userId}">
+                            			<option value="事假">事假</option>
+                            			<option value="病假">病假</option>
+                            			<option value="未带手机">未带手机</option>
+                            		</select>
+                            		<a href="javascript:remark(${user.userId},${user.rollBookInfoId})">确定</a>
+                            		<a href="javascript:cancelDiv(${user.userId})">取消</a>
+                            	</div>
+                            	<div id="remark_${user.userId}">
+                            		<a href="javascript:showDiv(${user.userId})">备注</a>
+                            	</div>
+                            </td>
+                    	</tr>
+					</#list>
+				</#if>
+			</table>
+		</div>
 	</div>
-	<div class="footer">
-		<#include "/common/footer.ftl">
-	</div>
+</div>
+<div class="footer">
+	<#include "/common/footer.ftl">
 </div>
 </body>
 </html>

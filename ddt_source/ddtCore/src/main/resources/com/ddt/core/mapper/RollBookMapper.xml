@@ -129,7 +129,7 @@
         FROM	ddt_user_roll_info
         WHERE	roll_book_info_id = #{rollInfoId}
         <if test="unrolled == true">
-            AND distance = -1 AND (roll_info = null OR roll_info = '')
+            AND distance = -1 AND (roll_info is null OR roll_info = '')
         </if>
     </select>
 </mapper>
