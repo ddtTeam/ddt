@@ -47,6 +47,7 @@
 		<div class="detail">
 			<div class="first">
         		 我爱点名-->进入列表，选择点名册-->开始，口头告知" 被点人”随机码；“被点人”：被点名输入随机码，进入点名册-->点名.
+        	</div>
         </div>
 	    <div class="title">点名流程图</div>
 	    <div class="detail">
