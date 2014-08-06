@@ -97,6 +97,9 @@ public class POIFillUtil {
 	}
 
 	public static String parseDate(Date date) {
+		if (date == null) {
+			return "";
+		}
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return sdf.format(date);
 	}
