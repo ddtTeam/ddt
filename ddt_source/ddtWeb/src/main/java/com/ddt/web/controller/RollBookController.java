@@ -444,10 +444,7 @@ public class RollBookController extends BaseController {
 	public void downloadAll(HttpServletRequest request, HttpServletResponse response) {
 		long rollBookId = ServletRequestUtils.getLongParameter(request, "rid", 0);
 
-		long userId = getUserId();
-
-		List<User> rollBookUsers = rollBookService.getRollBookUserList(userId, rollBookId, Integer.MAX_VALUE, 0);
-		
+		List<User> rollBookUsers = userService.getRollBookUserList(rollBookId, Integer.MAX_VALUE, 0);
 		if (CollectionUtils.isEmpty(rollBookUsers)) {
 			return;
 		}

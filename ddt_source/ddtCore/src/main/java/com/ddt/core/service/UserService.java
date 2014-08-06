@@ -27,7 +27,7 @@ public interface UserService {
 
 	void updateUser(User u);
 
-	List<User> getRollBookUserList(long groupId, int limit, int offset);
+	List<User> getRollBookUserList(long rollBookId, int limit, int offset);
 
 	void deleteUserById(long uid);
 
