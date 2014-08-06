@@ -14,6 +14,7 @@ import java.util.Map.Entry;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
@@ -131,23 +132,32 @@ public class POIFillUtil {
 			cell1.setCellValue(user.getMobile());
 			
 			for (int i = 0; i < infos.size(); i++) {
+				UserRollInfo info = infos.get(i);
 				if (i == 0) {
 					HSSFCell cell2 = row.createCell(2);
 					cell2.setCellStyle(bodyCellStyle);
-					cell2.setCellValue(parseDate(infos.get(i).getRollTime()));
+					cell2.setCellValue(parseDate(info.getRollTime()));
 					
 					HSSFCell cell3 = row.createCell(3);
 					cell3.setCellStyle(bodyCellStyle);
-					cell3.setCellValue(String.valueOf(infos.get(i).getDistance()));
+					if (info.getDistance() == -1.0 && StringUtils.isNotBlank(info.getInfo())) {
+						cell3.setCellValue(info.getInfo());
+					} else {
+						cell3.setCellValue(String.valueOf(info.getDistance()));
+					}
 				} else {
 					HSSFRow formRow = worksheet.createRow(startRowIndex + 1);
         			HSSFCell cell2 = formRow.createCell(2);
         			cell2.setCellStyle(bodyCellStyle);
-					cell2.setCellValue(parseDate(infos.get(i).getRollTime()));
+					cell2.setCellValue(parseDate(info.getRollTime()));
 					
-					HSSFCell cell3 = row.createCell(3);
+					HSSFCell cell3 = formRow.createCell(3);
 					cell3.setCellStyle(bodyCellStyle);
-					cell3.setCellValue(String.valueOf(infos.get(i).getDistance()));
+					if (info.getDistance() == -1.0 && StringUtils.isNotBlank(info.getInfo())) {
+						cell3.setCellValue(info.getInfo());
+					} else {
+						cell3.setCellValue(String.valueOf(info.getDistance()));
+					}
 				}
 				startRowIndex++;
 			}
