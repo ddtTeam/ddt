@@ -50,6 +50,7 @@
 	                            <td><a href="/rollbook/view?rid=${rollBook.id}" style="font:">查看</a></td>
 	                            <td><a href="/rollbook/roll?rid=${rollBook.id}">点名</a></td>
 	                            <td><a href="/rollbook/rolllist?rid=${rollBook.id}">点名历史</a></td>
+	                            <td><a href="/rollbook/downloadall?rid=${rollBook.id}">下载</a></td>
 	                            <td><a href="/rollbook/del?rid=${rollBook.id}&page=${page}">删除</a></td>
                         	</tr>
                     	</#list>

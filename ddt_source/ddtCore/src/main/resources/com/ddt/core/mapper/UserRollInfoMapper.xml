@@ -22,6 +22,20 @@
         		AND user_id = #{userId}
     </select>
     
+    <select id="getAllRollInfoByRid" parameterType="java.util.Map" resultType="UserRollInfo">
+        SELECT	  b.roll_book_info_id	rollBookInfoId
+		        , b.user_id	userId
+		        , b.roll_time	rollTime
+		        , b.roll_info	info
+		        , b.x			x
+		        , b.y			y
+		        , b.distance	distance
+        FROM	  ddt_roll_book_info a
+        		, ddt_user_roll_info b
+        WHERE	a.roll_book_id = #{rollBookId}
+        		AND a.id = b.roll_book_info_id
+    </select>
+    
     <insert id="addUserRollInfo" parameterType="UserRollInfo">
         INSERT INTO ddt_user_roll_info (roll_book_info_id, user_id, roll_time, roll_info, x, y, distance)
         VALUES(#{rollBookInfoId}, #{userId}, #{rollTime}, #{info}, #{x}, #{y}, #{distance})

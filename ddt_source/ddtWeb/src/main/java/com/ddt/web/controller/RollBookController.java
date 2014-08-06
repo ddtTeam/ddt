@@ -8,7 +8,10 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,6 +39,7 @@ import com.ddt.core.meta.User;
 import com.ddt.core.meta.UserRollInfo;
 import com.ddt.core.service.RollBookInfoService;
 import com.ddt.core.service.RollBookService;
+import com.ddt.core.service.UserRollInfoService;
 import com.ddt.core.service.UserService;
 import com.ddt.core.utils.DateUtils;
 import com.ddt.web.utils.POIFillUtil;
@@ -60,6 +64,9 @@ public class RollBookController extends BaseController {
 
 	@Autowired
 	private RollBookInfoService rollBookInfoService;
+	
+	@Autowired
+	private UserRollInfoService userRollInfoService;
 
 	@RequestMapping("list")
 	public ModelAndView list(HttpServletRequest request,
@@ -426,11 +433,82 @@ public class RollBookController extends BaseController {
 		List<Object[]> datas = generateDatas(userRollInfos, titles);
 
 		exportXLS(response, datas, titles);
+	}
+	
+	/**
+	 * 下载
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping("downloadall")
+	public void downloadAll(HttpServletRequest request, HttpServletResponse response) {
+		long rollBookId = ServletRequestUtils.getLongParameter(request, "rid", 0);
 
+		long userId = getUserId();
+
+		List<User> rollBookUsers = rollBookService.getRollBookUserList(userId, rollBookId, Integer.MAX_VALUE, 0);
+		
+		if (CollectionUtils.isEmpty(rollBookUsers)) {
+			return;
+		}
+		
+		List<UserRollInfo> infos = userRollInfoService.getAllRollInfoByRid(rollBookId);
+		
+		String[] titles = new String[] { "姓名", "电话号码", "点名时间", "距离"};
+		Map<User, List<UserRollInfo>> datas = generateXlsDatas(rollBookUsers, infos);
+
+		exportToXLS(response, datas, titles);
 	}
 
-	private List<Object[]> generateDatas(List<UserRollInfo> infos,
-			String[] titles) {
+	private void exportToXLS(HttpServletResponse response, Map<User, List<UserRollInfo>> datas, String[] titles) {
+		if (datas == null || datas.size() == 0) {
+			return;
+		}
+		
+		// 1.创建一个 workbook
+		HSSFWorkbook workbook = new HSSFWorkbook();
+		// 2.创建一个 worksheet
+		HSSFSheet worksheet = workbook.createSheet("idianming");
+		// 3.定义起始行和列
+		int startRowIndex = 0;
+		int startColIndex = 0;
+		// 4.创建title,data,headers
+		POILayoutUtil.buildReport(worksheet, startRowIndex, startColIndex, titles, "用户所有点名记录统计");
+		// 5.填充数据
+		POIFillUtil.fillReport(worksheet, startRowIndex, startColIndex, datas);
+
+		String fileName = "Idianming_All_Report_" + System.currentTimeMillis() + ".xls";
+		response.setHeader("Content-Disposition", "inline; filename=" + fileName);
+		// 确保发送的当前文本格式
+		response.setContentType("application/vnd.ms-excel");
+
+		POIFillUtil.write(response, worksheet);
+	}
+
+	private Map<User, List<UserRollInfo>> generateXlsDatas(List<User> rollBookUsers, List<UserRollInfo> infos) {
+		if (CollectionUtils.isEmpty(rollBookUsers) || CollectionUtils.isEmpty(infos)) {
+			return null;
+		}
+		
+		Map<User, List<UserRollInfo>> map = new HashMap<>();
+		
+		for (User user : rollBookUsers) {
+			List<UserRollInfo> urs = new ArrayList<>();
+			Iterator<UserRollInfo> iterator = infos.iterator();
+			while (iterator.hasNext()) {
+				UserRollInfo info = iterator.next();
+				if (info.getUserId() != user.getId()) {
+					continue;
+				}
+				urs.add(info);
+			}
+			map.put(user, urs);
+		}
+		
+		return map;
+	}
+
+	private List<Object[]> generateDatas(List<UserRollInfo> infos, String[] titles) {
 		if (CollectionUtils.isEmpty(infos)) {
 			return null;
 		}

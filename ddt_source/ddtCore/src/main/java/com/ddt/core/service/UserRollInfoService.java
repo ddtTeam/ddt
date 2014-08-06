@@ -4,6 +4,8 @@
  */
 package com.ddt.core.service;
 
+import java.util.List;
+
 import com.ddt.core.meta.UserRollInfo;
 
 /**
@@ -20,4 +22,6 @@ public interface UserRollInfoService {
 	void addUserRollInfo(UserRollInfo userRollInfo);
 
 	void updateUserRollInfo(UserRollInfo userRollInfo);
+
+	List<UserRollInfo> getAllRollInfoByRid(long rollBookId);
 }

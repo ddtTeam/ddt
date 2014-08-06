@@ -5,6 +5,7 @@
 package com.ddt.core.service.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,14 @@ public class UserRollInfoServiceImpl implements UserRollInfoService {
 	@Override
 	public void updateUserRollInfo(UserRollInfo userRollInfo) {
 		userRollInfoMapper.updateUserRollInfo(userRollInfo);
+	}
+
+	@Override
+	public List<UserRollInfo> getAllRollInfoByRid(long rollBookId) {
+		Map<String, Object> params = new HashMap<>();
+		
+		params.put("rollBookId", rollBookId);
+		return userRollInfoMapper.getAllRollInfoByRid(params);
 	}
 
 }

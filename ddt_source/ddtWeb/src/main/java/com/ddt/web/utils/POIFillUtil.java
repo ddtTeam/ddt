@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -17,8 +19,13 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.util.CellRangeAddress;
+
+import com.ddt.core.meta.User;
+import com.ddt.core.meta.UserRollInfo;
 
 /**
  * POIFillManager.java
@@ -92,5 +99,55 @@ public class POIFillUtil {
 	public static String parseDate(Date date) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return sdf.format(date);
+	}
+
+	public static void fillReport(HSSFSheet worksheet, int startRowIndex, int startColIndex, Map<User, List<UserRollInfo>> datas) {
+		// Row offset
+		startRowIndex += 1;
+
+		// Create cell style for the body
+		HSSFCellStyle bodyCellStyle = worksheet.getWorkbook().createCellStyle();
+		bodyCellStyle.setAlignment(CellStyle.ALIGN_CENTER);
+		bodyCellStyle.setWrapText(false);
+		
+		for (Entry<User, List<UserRollInfo>> entry : datas.entrySet()) {
+			
+			User user = entry.getKey();
+			List<UserRollInfo> infos = entry.getValue();
+			
+			HSSFRow row = worksheet.createRow((short) startRowIndex + 1);
+			
+			Cell cell0 = row.createCell(0);
+			worksheet.addMergedRegion(new CellRangeAddress(startRowIndex + 1, startRowIndex + infos.size(), 0, 0));
+			cell0.setCellStyle(bodyCellStyle);
+			cell0.setCellValue(user.getUserName());
+			
+			Cell cell1 = row.createCell(1);
+			worksheet.addMergedRegion(new CellRangeAddress(startRowIndex + 1, startRowIndex + infos.size(), 1, 1));
+			cell1.setCellStyle(bodyCellStyle);
+			cell1.setCellValue(user.getMobile());
+			
+			for (int i = 0; i < infos.size(); i++) {
+				if (i == 0) {
+					HSSFCell cell2 = row.createCell(2);
+					cell2.setCellStyle(bodyCellStyle);
+					cell2.setCellValue(parseDate(infos.get(i).getRollTime()));
+					
+					HSSFCell cell3 = row.createCell(3);
+					cell3.setCellStyle(bodyCellStyle);
+					cell3.setCellValue(String.valueOf(infos.get(i).getDistance()));
+				} else {
+					HSSFRow formRow = worksheet.createRow(startRowIndex + 1);
+        			HSSFCell cell2 = formRow.createCell(2);
+        			cell2.setCellStyle(bodyCellStyle);
+					cell2.setCellValue(parseDate(infos.get(i).getRollTime()));
+					
+					HSSFCell cell3 = row.createCell(3);
+					cell3.setCellStyle(bodyCellStyle);
+					cell3.setCellValue(String.valueOf(infos.get(i).getDistance()));
+				}
+				startRowIndex++;
+			}
+		}
 	}
 }

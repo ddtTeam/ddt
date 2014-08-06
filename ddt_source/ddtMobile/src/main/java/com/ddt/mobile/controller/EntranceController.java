@@ -115,7 +115,7 @@ public class EntranceController {
 					String reply = "点击查看我的<a href=\"http://mobile.idianming.com.cn/rollbook/myrollbook?wx=" + fromUserName + "\">点名列表</a>";
 					buildTextMsg(view, toUserName, fromUserName, reply);
 				} else if (MenuKey.KEY_I_CLICKED.getValue().equalsIgnoreCase(eventKey)) {
-					String reply = "回复code，获取指定点名册进行点名。";
+					String reply = "请向点名者发起者询问点名随机码，回复此随机码开始点名";
 					buildTextMsg(view, toUserName, fromUserName, reply);
 				} else if (MenuKey.KEY_SCORE_MALL.getValue().equalsIgnoreCase(eventKey)) {
 					String reply = "点击进入<a href=\"http://mobile.idianming.com.cn/score/mall?wx=" + fromUserName + "\">积分商城</a>";
@@ -217,7 +217,7 @@ public class EntranceController {
 		user.setPassword(password);
 		userService.updateWxUser(user);
 		
-		String c = "注册成功，您可以访问<a href=\"www.idianming.com.cn\">www.idianming.com.cn</a>登陆上传您的点名册，用户名是您的注册手机号";
+		String c = "请用注册信息登陆<a href=\"http://www.idianming.net\">www.idianming.net</a>，上传点名册";
 		buildTextMsg(view, toUserName, fromUserName, c);
 		
 	}

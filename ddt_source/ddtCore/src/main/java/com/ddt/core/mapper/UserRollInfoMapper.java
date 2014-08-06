@@ -4,6 +4,7 @@
  */
 package com.ddt.core.mapper;
 
+import java.util.List;
 import java.util.Map;
 
 import com.ddt.core.meta.UserRollInfo;
@@ -22,5 +23,7 @@ public interface UserRollInfoMapper {
 	void addUserRollInfo(UserRollInfo userRollInfo);
 
 	void updateUserRollInfo(UserRollInfo userRollInfo);
+
+	List<UserRollInfo> getAllRollInfoByRid(Map<String, Object> params);
 
 }
