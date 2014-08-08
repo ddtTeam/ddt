@@ -40,7 +40,7 @@
 	                            <td>${rollBook.rollCode!''}</td>
 	                            <td><a href="/rollbook/userrollinfo?rid=${rollBook.rollInfoId}">点名情况</a></td>
 	                            <td><a href="/rollbook/downloadinfo?rid=${rollBook.rollInfoId}">下载</a></td>
-	                            <td><a href="/rollbook/delrollinfo?rid=${rollBook.rollInfoId}&page=${page}">删除</a></td>
+	                            <td><a href="/rollbook/delrollinfo?rid=${rollBook.rollInfoId}&bid=${rollBook.id}">删除</a></td>
                         	</tr>
                     	</#list>
                     </#if>

@@ -41,7 +41,7 @@
         VALUES(#{rollBookInfoId}, #{userId}, #{rollTime}, #{info}, #{x}, #{y}, #{distance})
     </insert>
     
-    <insert id="updateUserRollInfo" parameterType="UserRollInfo">
+    <update id="updateUserRollInfo" parameterType="UserRollInfo">
         UPDATE	  ddt_user_roll_info 
         SET	 	  roll_time = #{rollTime}
         		, roll_info = #{info}
@@ -50,5 +50,17 @@
         		, distance = #{distance}
         WHERE	roll_book_info_id = #{rollBookInfoId}
         		AND user_id = #{userId}
-    </insert>
+    </update>
+    
+    <update id="replaceUserId" parameterType="java.util.Map">
+        UPDATE	ddt_user_roll_info 
+        SET		user_id = #{userId}
+        WHERE	roll_book_info_id = #{infoId}
+        		AND	user_id = #{uid}	
+    </update>
+    
+    <delete id="deleteByInfoId" parameterType="java.util.Map">
+        DELETE	FROM ddt_user_roll_info
+        WHERE	roll_book_info_id = #{infoId}	
+    </delete>
 </mapper>

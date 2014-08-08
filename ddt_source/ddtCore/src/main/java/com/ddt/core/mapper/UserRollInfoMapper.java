@@ -26,4 +26,8 @@ public interface UserRollInfoMapper {
 
 	List<UserRollInfo> getAllRollInfoByRid(Map<String, Object> params);
 
+	void replaceUserId(Map<String, Object> params);
+
+	void deleteByInfoId(Map<String, Object> params);
+
 }

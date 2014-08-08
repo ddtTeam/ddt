@@ -171,6 +171,21 @@ public class RollBookController extends BaseController {
 			}
 			
 			UserRollInfo userRollInfo = userRollInfoService.getUserRollInfoByIds(infoId, userId);
+			
+			//替换用户id
+			if (userRollInfo == null) {
+				long uid = userService.getUserToReplace(user.getUserName(), info.getRollBookId());
+				//更新roll_book_user表的userid
+				userService.updateUserToNewId(uid, userId, info.getRollBookId());
+				//删除user表的原来userid对用的用户
+				userService.deleteUserById(uid);
+				
+				userRollInfo = userRollInfoService.getUserRollInfoByIds(infoId, uid);
+				userRollInfo.setUserId(userId);
+				//更新用户id
+				userRollInfoService.replaceUserId(infoId, uid, userId);
+			}
+			
 			if (userRollInfo != null) {
 				if (userRollInfo.getRollTime() != null) {
 					view.addObject("result", "您已在" + DateUtils.parseDateToString(DateUtils.DATE_TIME_FORMAT, userRollInfo.getRollTime()) + "参与本次点名，不能重复点名");
@@ -190,27 +205,7 @@ public class RollBookController extends BaseController {
 					userRollInfoService.updateUserRollInfo(userRollInfo);
 					view.addObject("result", "完成点名");
 				}
-			} else {
-				userRollInfo = new UserRollInfo();
-				userRollInfo.setRollBookInfoId(infoId);
-				userRollInfo.setUserId(userId);
-				userRollInfo.setRollTime(new Date());
-				
-				//计算经纬度
-				String ip = getIpAddr(request);
-				Location location = LocationTool.getLocation(ip);
-				
-				if (location != null) {
-					userRollInfo.setX(location.getContentX());
-					userRollInfo.setY(location.getContentY());
-					double distance = LocationTool.getDistance(Double.valueOf(info.getY()), Double.valueOf(info.getX()), Double.valueOf(userRollInfo.getY()), Double.valueOf(userRollInfo.getX()));
-					userRollInfo.setDistance(distance);
-				}
-				
-				userRollInfoService.addUserRollInfo(userRollInfo);
-				view.addObject("result", "完成点名");
 			}
-			
 		} else {
 			view.addObject("result", "点名册不存在");
 		}

@@ -385,6 +385,26 @@ public class RollBookController extends BaseController {
 
 		return view;
 	}
+	
+	/**
+	 * 删除某个点名
+	 */
+	@RequestMapping("delrollinfo")
+	public ModelAndView delRollinfo(HttpServletRequest request,
+			HttpServletResponse response) {
+		long userId = getUserId();
+
+		long rollInfoId = ServletRequestUtils.getLongParameter(request, "rid", 0);
+		long bid = ServletRequestUtils.getLongParameter(request, "bid", 0);
+		
+		RollBookInfo rollBookInfo = rollBookInfoService.getRollInfoById(rollInfoId);
+		if (rollBookInfo != null && rollBookInfo.getUserId() == userId) {
+			rollBookInfoService.deleteRollBookInfo(rollInfoId, userId);
+			userRollInfoService.deleteByInfoId(rollInfoId);
+		}
+		
+		return new ModelAndView(new RedirectView("rollbook/rolllist?rid=" + bid));
+	}
 
 	/**
 	 * 增加点名册用户

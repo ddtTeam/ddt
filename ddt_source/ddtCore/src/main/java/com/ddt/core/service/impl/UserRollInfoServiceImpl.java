@@ -57,4 +57,23 @@ public class UserRollInfoServiceImpl implements UserRollInfoService {
 		return userRollInfoMapper.getAllRollInfoByRid(params);
 	}
 
+	@Override
+	public void replaceUserId(long infoId, long uid, long userId) {
+		Map<String, Object> params = new HashMap<>();
+		
+		params.put("infoId", infoId);
+		params.put("uid", uid);
+		params.put("userId", userId);
+		
+		userRollInfoMapper.replaceUserId(params);
+	}
+
+	@Override
+	public void deleteByInfoId(long rollInfoId) {
+		Map<String, Object> params = new HashMap<>();
+		
+		params.put("infoId", rollInfoId);
+		userRollInfoMapper.deleteByInfoId(params);
+	}
+
 }

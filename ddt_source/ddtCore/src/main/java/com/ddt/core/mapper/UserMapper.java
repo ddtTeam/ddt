@@ -55,4 +55,8 @@ public interface UserMapper {
 	User getWxUserByWxNumber(Map<String, Object> params);
 
 	int getRollBookUserCount(Map<String, Object> params);
+
+	long getUserToReplace(Map<String, Object> params);
+
+	void updateUserToNewId(Map<String, Object> params);
 }

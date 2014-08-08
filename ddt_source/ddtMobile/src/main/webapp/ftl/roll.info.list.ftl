@@ -20,30 +20,28 @@
 		<div class="banner"></div>
 	</div>
 	<div class="main">
-			
-			<div class="pointswrap">
-
-				<div class="leftpoint">
-					<p>点名册"${name!''}"的点名情况</p>
-				</div>
-			</div>	
-			<div class="goodslist">
-				<table class="goodstable">
-					<#if rollBooks?? && rollBooks?size &gt; 0>
-						<#list rollBooks as rollBook>
-							<tr>
-								<td class="goodinfo"><#if rollBook.rollStartTime??>${rollBook.rollStartTime?string('yyyy-MM-dd HH:mm:ss')}</#if></td>
-								<td class="goodinfo"><#if rollBook.rollEndTime??>${rollBook.rollEndTime?string('yyyy-MM-dd HH:mm:ss')}</#if></td>
-								<td class="goodinfo">${rollBook.rollCode!''}</td>
-								<td class="goodinfo">${rollBook.userCount!'0'}</td>
-								<td class="goodinfo"><a href="/rollbook/userlist?wx=${wx}&rid=${rollBook.rollInfoId}">名单</a></td>
-								<td class="goodinfo"><#if rollBook.rollEndTime??>已结束<#else><a href="/rollbook/end?wx=${wx}&rid=${rollBook.rollInfoId}">结束点名</a></#if></td>
-							</tr>
-						</#list>
-					</#if>
-				</table>
-				<@lpager total=totalPage index=page url=pageUrl />
+		<div class="pointswrap">
+			<div class="leftpoint">
+				<p>点名册"${name!''}"的点名情况</p>
 			</div>
+		</div>	
+		<div class="goodslist">
+			<table class="goodstable">
+				<#if rollBooks?? && rollBooks?size &gt; 0>
+					<#list rollBooks as rollBook>
+						<tr>
+							<td class="goodinfo"><#if rollBook.rollStartTime??>${rollBook.rollStartTime?string('yyyy-MM-dd HH:mm:ss')}</#if></td>
+							<td class="goodinfo"><#if rollBook.rollEndTime??>${rollBook.rollEndTime?string('yyyy-MM-dd HH:mm:ss')}</#if></td>
+							<td class="goodinfo">${rollBook.rollCode!''}</td>
+							<#--<td class="goodinfo">${rollBook.userCount!'0'}</td>-->
+							<td class="goodinfo"><a href="/rollbook/userlist?wx=${wx}&rid=${rollBook.rollInfoId}">名单</a></td>
+							<td class="goodinfo"><#if rollBook.rollEndTime??>已结束<#else><a href="/rollbook/end?wx=${wx}&rid=${rollBook.rollInfoId}">结束点名</a></#if></td>
+						</tr>
+					</#list>
+				</#if>
+			</table>
+			<@lpager total=totalPage index=page url=pageUrl />
+		</div>
 	</div>
 </div>
 <div class="footer">

@@ -24,4 +24,8 @@ public interface UserRollInfoService {
 	void updateUserRollInfo(UserRollInfo userRollInfo);
 
 	List<UserRollInfo> getAllRollInfoByRid(long rollBookId);
+
+	void replaceUserId(long infoId, long uid, long userId);
+
+	void deleteByInfoId(long rollInfoId);
 }

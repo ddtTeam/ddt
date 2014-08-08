@@ -143,4 +143,21 @@ public class UserServiceImpl implements UserService {
 		return userMapper.getRollBookUserCount(params);
 	}
 
+	@Override
+	public long getUserToReplace(String userName, long rollBookId) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("userName", userName);
+		params.put("rollBookId", rollBookId);
+		return userMapper.getUserToReplace(params);
+	}
+
+	@Override
+	public void updateUserToNewId(long uid, long userId, long rollBookId) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("uid", uid);
+		params.put("userId", userId);
+		params.put("rollBookId", rollBookId);
+		userMapper.updateUserToNewId(params);
+	}
+
 }

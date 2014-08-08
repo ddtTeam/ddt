@@ -55,4 +55,8 @@ public interface UserService {
 
 	int getRollBookUserCount(long rollBookId);
 
+	long getUserToReplace(String userName, long bookId);
+
+	void updateUserToNewId(long uid, long userId, long rollBookId);
+
 }

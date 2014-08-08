@@ -162,4 +162,22 @@
 				AND b.id = #{infoId}
 				LIMIT 1
     </select>
+    
+    <select id="getUserToReplace" parameterType="java.util.Map" resultType="long">
+        SELECT	a.user_id
+        FROM	  ddt_roll_book_user a
+        		, ddt_user b
+        WHERE	a.book_id = #{rollBookId}
+        		AND a.user_id = b.id 
+        		AND b.user_name = #{userName}
+        		AND (b.wx_number IS NULL  OR wx_number = '')
+        LIMIT   1
+    </select>
+    
+    <update id="updateUserToNewId" parameterType="java.util.Map">
+        UPDATE	ddt_roll_book_user
+        SET		user_id = #{userId}
+        WHERE	book_id = #{rollBookId}
+        		AND	user_id = #{uid}
+    </update>
 </mapper>
