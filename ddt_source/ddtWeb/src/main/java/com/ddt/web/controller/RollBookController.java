@@ -403,7 +403,7 @@ public class RollBookController extends BaseController {
 			userRollInfoService.deleteByInfoId(rollInfoId);
 		}
 		
-		return new ModelAndView(new RedirectView("rollbook/rolllist?rid=" + bid));
+		return new ModelAndView(new RedirectView("/rollbook/rolllist?rid=" + bid));
 	}
 
 	/**
