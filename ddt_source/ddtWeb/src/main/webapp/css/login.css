@@ -137,3 +137,9 @@ width: 55px;
 .icon-next {
    background-position: -35px -457px ;
 }
+
+.error_log {
+	height:20px;
+	font-size: 14px;
+	color: red;
+}

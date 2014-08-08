@@ -6,22 +6,18 @@
 
 			if (_n == null || $.trim(_n) == "") {
 				$("#error_log").html("请输入用户名");
-				$("#error_log").css("display", "block");
-				$("#username").focus();
+				$("#uname").focus();
 				return;
 			} else {
 				$("#error_log").html("");
-				$("#error_log").css("display", "none");
 			}
 
 			if (_p == null || $.trim(_p) == "") {
 				$("#error_log").html("请输入密码");
-				$("#error_log").css("display", "block");
-				$("#password").focus();
+				$("#upwd").focus();
 				return;
 			} else {
 				$("#error_log").html("");
-				$("#error_log").css("display", "none");
 			}
 
 			$.post("/login", {
@@ -32,7 +28,6 @@
 					window.location.href = "/rollbook/list";
 				} else {
 					$("#error_log").html(data.result);
-					$("#error_log").css("display", "block");
 				}
 			}, "json");
 		});
