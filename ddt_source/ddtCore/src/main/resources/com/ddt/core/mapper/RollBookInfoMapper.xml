@@ -61,6 +61,12 @@
         		AND user_id = #{userId}
     </delete>
     
+     <delete id="deleteById" parameterType="java.util.Map">
+        DELETE FROM ddt_roll_book_info
+        WHERE	id = #{infoId}
+        		AND user_id = #{userId}
+     </delete>
+     
      <update id="updateRollBookInfo" parameterType="RollBookInfo">
          UPDATE	ddt_roll_book_info
          SET	roll_end_time = #{rollEndTime}

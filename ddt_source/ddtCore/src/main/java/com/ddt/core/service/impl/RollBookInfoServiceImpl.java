@@ -76,4 +76,12 @@ public class RollBookInfoServiceImpl implements RollBookInfoService {
 		params.put("content", content);
 		return rollBookInfoMapper.getRollBookInfoByRandCode(params);
 	}
+
+	@Override
+	public void deleteById(long rollInfoId, long userId) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("infoId", rollInfoId);
+		params.put("userId", userId);
+		rollBookInfoMapper.deleteById(params);
+	}
 }

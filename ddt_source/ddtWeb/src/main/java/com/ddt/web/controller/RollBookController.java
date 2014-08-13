@@ -399,7 +399,7 @@ public class RollBookController extends BaseController {
 		
 		RollBookInfo rollBookInfo = rollBookInfoService.getRollInfoById(rollInfoId);
 		if (rollBookInfo != null && rollBookInfo.getUserId() == userId) {
-			rollBookInfoService.deleteRollBookInfo(rollInfoId, userId);
+			rollBookInfoService.deleteById(rollInfoId, userId);
 			userRollInfoService.deleteByInfoId(rollInfoId);
 		}
 		

@@ -31,4 +31,6 @@ public interface RollBookInfoMapper {
 	RollBookInfo getLatestRollInfoByRid(Map<String, Object> params);
 
 	RollBookInfo getRollBookInfoByRandCode(Map<String, Object> params);
+
+	void deleteById(Map<String, Object> params);
 }

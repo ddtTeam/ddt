@@ -30,4 +30,6 @@ public interface RollBookInfoService {
 	RollBookInfo getLatestRollInfoByRid(long rid, long id);
 
 	RollBookInfo getRollBookInfoByRandCode(String content);
+
+	void deleteById(long rollInfoId, long userId);
 }
