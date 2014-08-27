@@ -186,7 +186,7 @@ public class EntranceController {
 		String userName = null;
 		String mobile = null;
 		String password = null;
-		if (contentArray.length == 3) {
+		if (contentArray.length == 3 && StringUtils.isNotBlank(contentArray[0])) {
 			userName = contentArray[0];
 			mobile = contentArray[1];
 			password = contentArray[2];
