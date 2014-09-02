@@ -25,7 +25,7 @@
        },
        slide:function(slide){
            this.slideContainer.css("background-image",'url(' + slide + ')');
-           this.slideTarget.attr("href", this.targets[this.currentSlide]);
+//           this.slideTarget.attr("href", this.targets[this.currentSlide]);
        },
        navSlide: function(e){
           e.preventDefault();

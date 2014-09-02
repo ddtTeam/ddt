@@ -38,7 +38,7 @@
             </form>
         </div>
         <div class="main-inner" id="J-slideContainer">
-            <a class="theme-bg" id="J-slideTarget" target="_blank" href="http://www.huajiatangyiwen.com"></a>
+            <a class="theme-bg" id="J-slideTarget" target="_blank" href="#"></a>
             <div class="theme-ctrl">
                 <a id="J-prevTheme" class="ddt-icon icon-prev" href="javascript:void(0);" title="上一张"></a>
                 <a id="J-nextTheme" class="ddt-icon icon-next" href="javascript:void(0);" title="下一张"></a>
