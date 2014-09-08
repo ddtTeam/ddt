@@ -127,8 +127,10 @@ public class RollBookController extends BaseController {
 	@RequestMapping("/bind")
 	public ModelAndView bind(HttpServletRequest request, HttpServletResponse response) {
 		//微信用户
-		User user = getUser(request);
+		String wx = StringUtils.trim(ServletRequestUtils.getStringParameter(request, "wx", ""));
 		long infoId = ServletRequestUtils.getLongParameter(request, "infoId", 0);
+		
+		User user = userService.getUserByWxNumber(wx);
 		//获取点名册关联用户
 		User u = userService.getUserByNameAndInfoId(user.getUserName(), infoId);
 		
