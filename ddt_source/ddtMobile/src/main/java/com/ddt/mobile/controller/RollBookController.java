@@ -90,7 +90,8 @@ public class RollBookController extends BaseController {
 		ModelAndView view = new ModelAndView("rolled");
 		
  		String wx = StringUtils.trim(ServletRequestUtils.getStringParameter(request, "wx", ""));
-		User user = getUser(request);
+ 		//微信用户
+ 		User user = getUser(request);
 		
 		long infoId = ServletRequestUtils.getLongParameter(request, "infoId", 0);
 		
@@ -125,9 +126,10 @@ public class RollBookController extends BaseController {
 	 */
 	@RequestMapping("/bind")
 	public ModelAndView bind(HttpServletRequest request, HttpServletResponse response) {
-		
+		//微信用户
 		User user = getUser(request);
 		long infoId = ServletRequestUtils.getLongParameter(request, "infoId", 0);
+		//获取点名册关联用户
 		User u = userService.getUserByNameAndInfoId(user.getUserName(), infoId);
 		
 		if (u == null) {
@@ -136,9 +138,15 @@ public class RollBookController extends BaseController {
 		
 		u.setMobile(user.getMobile());
 		u.setWxName(user.getWxName());
-		
+		//更新作为页面的是否绑定判断
 		userService.updateUser(u);
+		//微信账号替换点名册账号
+		RollBookInfo rollBookInfo = rollBookInfoService.getRollInfoById(infoId);
+		//更新上传点名册的点名信息用户id
+		userService.updateUserToNewId(u.getId(), user.getId(), rollBookInfo.getRollBookId());
 		
+		//更新开启点名册的点名信息用户id
+		userRollInfoService.replaceUserId(infoId, u.getId(), user.getId());
 		return userRolled(request, response);
 	}
 	
@@ -153,11 +161,10 @@ public class RollBookController extends BaseController {
 		ModelAndView view = new ModelAndView("info");
 		
 		long infoId = ServletRequestUtils.getLongParameter(request, "infoId", 0);
-		String wx = StringUtils.trim(ServletRequestUtils.getStringParameter(request, "wx", ""));
-		
-		User user = userService.getUserByWxNumber(wx);
+		User user = getUser(request);
 		long userId = user.getId();
 		
+		//获取开始点名的点名册信息
 		RollBookInfo info = rollBookInfoService.getRollInfoById(infoId);
 		
 		long current = System.currentTimeMillis();
@@ -171,20 +178,6 @@ public class RollBookController extends BaseController {
 			}
 			
 			UserRollInfo userRollInfo = userRollInfoService.getUserRollInfoByIds(infoId, userId);
-			
-			//替换用户id
-			if (userRollInfo == null) {
-				long uid = userService.getUserToReplace(user.getUserName(), info.getRollBookId());
-				//更新roll_book_user表的userid
-				userService.updateUserToNewId(uid, userId, info.getRollBookId());
-				//删除user表的原来userid对用的用户
-				userService.deleteUserById(uid);
-				
-				userRollInfo = userRollInfoService.getUserRollInfoByIds(infoId, uid);
-				userRollInfo.setUserId(userId);
-				//更新用户id
-				userRollInfoService.replaceUserId(infoId, uid, userId);
-			}
 			
 			if (userRollInfo != null) {
 				if (userRollInfo.getRollTime() != null) {

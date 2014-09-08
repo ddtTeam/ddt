@@ -26,7 +26,7 @@
                         <th style="width:15%">点名结束时间</th>
                         <th style="width:8%">总人数</th>
                         <th style="width:8%">随机码</th>
-                        <th style="width:20%" colspan=3>操作</th>
+                        <th style="width:20%" colspan=2>操作</th>
                     </tr>
                     <#if rollBooks?? && rollBooks?size &gt; 0>
                     	<#list rollBooks as rollBook>
@@ -40,7 +40,7 @@
 	                            <td>${rollBook.rollCode!''}</td>
 	                            <td><a href="/rollbook/userrollinfo?rid=${rollBook.rollInfoId}">点名情况</a></td>
 	                            <td><a href="/rollbook/downloadinfo?rid=${rollBook.rollInfoId}">下载</a></td>
-	                            <td><a href="/rollbook/delrollinfo?rid=${rollBook.rollInfoId}&bid=${rollBook.id}">删除</a></td>
+	                            <#--<td><a href="/rollbook/delrollinfo?rid=${rollBook.rollInfoId}&bid=${rollBook.id}">删除</a></td>-->
                         	</tr>
                     	</#list>
                     </#if>
