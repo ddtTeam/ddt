@@ -4,6 +4,7 @@
  */
 package com.ddt.core.service;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -21,6 +22,8 @@ import com.google.gson.Gson;
  */
 @Component
 public class LocationTool {
+	private static Logger logger = Logger.getLogger(LocationTool.class); 
+	
 	private static String ak = "VEnUn9IFGmw8Cn1e8bUPQT1n";
 	
 	private static String url = "http://api.map.baidu.com/location/ip";
@@ -28,11 +31,16 @@ public class LocationTool {
 	private static final double EARTH_RADIUS = 6378.137;
 	
 	public static Location getLocation(String ip) {
-		StringBuffer sb = new StringBuffer();
-		sb.append(url).append("?ak=").append(ak).append("&ip=").append(ip).append("&coor=bd09ll");
-		String content = HttpUtils.getContent(sb.toString());
-		Gson gson = new Gson();
-		Location location = gson.fromJson(content, Location.class);
+		Location location = null;
+		try {
+			StringBuffer sb = new StringBuffer();
+			sb.append(url).append("?ak=").append(ak).append("&ip=").append(ip).append("&coor=bd09ll");
+			String content = HttpUtils.getContent(sb.toString());
+			Gson gson = new Gson();
+			location = gson.fromJson(content, Location.class);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
 		return location;
 	}
 	
