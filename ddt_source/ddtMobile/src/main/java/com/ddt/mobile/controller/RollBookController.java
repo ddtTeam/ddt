@@ -154,6 +154,8 @@ public class RollBookController extends BaseController {
 		
 		//更新开启点名册的点名信息用户id
 		userRollInfoService.replaceUserId(infoId, u.getId(), user.getId());
+		
+		userService.deleteUserById(u.getId());
 		return userRolled(request, response);
 	}
 	
@@ -168,7 +170,8 @@ public class RollBookController extends BaseController {
 		ModelAndView view = new ModelAndView("info");
 		
 		long infoId = ServletRequestUtils.getLongParameter(request, "infoId", 0);
-		User user = getUser(request);
+		String wx = StringUtils.trim(ServletRequestUtils.getStringParameter(request, "wx", ""));
+		User user = userService.getUserByWxNumber(wx);
 		long userId = user.getId();
 		
 		//获取开始点名的点名册信息
