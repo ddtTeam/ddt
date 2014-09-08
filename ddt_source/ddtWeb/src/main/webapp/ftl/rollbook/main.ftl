@@ -37,7 +37,7 @@
                         <th style="width:25%">开始时间</th>
                         <th style="width:25%">结束时间</th>
                         <th style="width:10%">总人数</th>
-                        <th style="width:25%" colspan=5>操作</th>
+                        <th style="width:25%" colspan=4>操作</th>
                     </tr>
                     <#if rollBooks?? && rollBooks?size &gt; 0>
                     	<#list rollBooks as rollBook>
@@ -48,10 +48,10 @@
 	                            <td>${rollBook.userCount!'0'}</td>
 	                            <td><a href="/rollbook/userlist?rid=${rollBook.id}">名单</a></td>
 	                            <td><a href="/rollbook/view?rid=${rollBook.id}" style="font:">查看</a></td>
-	                            <td><a href="/rollbook/roll?rid=${rollBook.id}">点名</a></td>
+	                            <#-- <td><a href="/rollbook/roll?rid=${rollBook.id}">点名</a></td> -->
 	                            <td><a href="/rollbook/rolllist?rid=${rollBook.id}">点名历史</a></td>
 	                            <td><a href="/rollbook/downloadall?rid=${rollBook.id}">下载</a></td>
-	                            <td><a href="/rollbook/del?rid=${rollBook.id}&page=${page}">删除</a></td>
+	                           <#-- <td><a href="/rollbook/del?rid=${rollBook.id}&page=${page}">删除</a></td> -->
                         	</tr>
                     	</#list>
                     </#if>
