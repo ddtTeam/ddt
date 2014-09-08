@@ -108,7 +108,12 @@ public class RollBookController extends BaseController {
 		if (u == null) {
 			view.addObject("bind", 1);
 		} else {
-			view.addObject("bind", 0);
+			User namedUser = userService.getUserByNameAndInfoId(user.getUserName(), infoId);
+			if (u.getId() != namedUser.getId()) {
+				view.addObject("bind", 1);
+			} else {
+				view.addObject("bind", 0);
+			}
 		}
 		
 		view.addObject("info", info);
