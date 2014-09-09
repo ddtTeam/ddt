@@ -136,6 +136,13 @@ public class RollBookController extends BaseController {
 		long infoId = ServletRequestUtils.getLongParameter(request, "infoId", 0);
 		
 		User user = userService.getUserByWxNumber(wx);
+		
+		boolean needReplace = true;
+		if (user == null) {
+			needReplace = false;
+			user = userService.getWxUserByWxNumber(wx);
+		}
+		
 		//获取点名册关联用户
 		User u = userService.getUserByNameAndInfoId(user.getUserName(), infoId);
 		
@@ -147,15 +154,17 @@ public class RollBookController extends BaseController {
 		u.setWxName(user.getWxName());
 		//更新作为页面的是否绑定判断
 		userService.updateUser(u);
-		//微信账号替换点名册账号
-		RollBookInfo rollBookInfo = rollBookInfoService.getRollInfoById(infoId);
-		//更新上传点名册的点名信息用户id
-		userService.updateUserToNewId(u.getId(), user.getId(), rollBookInfo.getRollBookId());
-		
-		//更新开启点名册的点名信息用户id
-		userRollInfoService.replaceUserId(infoId, u.getId(), user.getId());
-		
-		userService.deleteUserById(u.getId());
+		if (needReplace) {
+			//微信账号替换点名册账号
+			RollBookInfo rollBookInfo = rollBookInfoService.getRollInfoById(infoId);
+			//更新上传点名册的点名信息用户id
+			userService.updateUserToNewId(u.getId(), user.getId(), rollBookInfo.getRollBookId());
+			
+			//更新开启点名册的点名信息用户id
+			userRollInfoService.replaceUserId(infoId, u.getId(), user.getId());
+			
+			userService.deleteUserById(u.getId());
+		}
 		return userRolled(request, response);
 	}
 	
