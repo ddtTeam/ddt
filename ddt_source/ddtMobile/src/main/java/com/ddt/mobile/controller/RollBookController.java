@@ -18,6 +18,7 @@ import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ddt.core.bean.Pagination;
 import com.ddt.core.location.Location;
 import com.ddt.core.meta.RollBook;
 import com.ddt.core.meta.RollBookInfo;
@@ -64,16 +65,18 @@ public class RollBookController extends BaseController {
 		User user = getUser(request);
 		
 		int page = ServletRequestUtils.getIntParameter(request, "page", 1);
-		int limit = 20;
-		int offset = (page - 1) * limit;
 		
-		List<RollBook> list = rollBookService.getRollBookList(user.getId(), "", limit, offset);
+		Pagination pagination = new Pagination();
+		pagination.setPage(page);
+		
+		
+		List<RollBook> list = rollBookService.getRollBookList(user.getId(), "", pagination.getLimit(), pagination.getOffset());
 		int count = rollBookService.getRollBookCount(user.getId(), "");
 		
 		view.addObject("rollBooks", list);
 		view.addObject("wx", wx);
 		view.addObject("page", page);
-		view.addObject("totalPage", (int) Math.ceil(count * 1.0 / limit));
+		view.addObject("totalPage", (int) Math.ceil(count * 1.0 / pagination.getLimit()));
 		view.addObject("pageUrl", "/rollbook/myrollbook?wx=" + wx);
 		
 		return view;
