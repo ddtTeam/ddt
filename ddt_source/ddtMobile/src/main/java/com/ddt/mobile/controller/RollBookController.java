@@ -1,4 +1,4 @@
-﻿/*
+/*
  * @(#)RollBookController.java 2014-6-19
  *
  */
