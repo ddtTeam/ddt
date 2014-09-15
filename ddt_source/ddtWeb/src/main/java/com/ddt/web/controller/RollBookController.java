@@ -473,7 +473,7 @@ public class RollBookController extends BaseController {
 		List<UserRollInfo> userRollInfos = rollBookService.getUserRollInfoList(
 				userId, rollInfoId, Integer.MAX_VALUE, 0);
 
-		String[] titles = new String[] { "姓名", "电话号码", "点名时间", "距离", "备注" };
+		String[] titles = new String[] { "姓名", "电话号码", "点名时间", "点名状态", "备注" };
 		List<Object[]> datas = generateDatas(userRollInfos, titles);
 
 		exportXLS(response, datas, titles);
@@ -495,7 +495,7 @@ public class RollBookController extends BaseController {
 		
 		List<UserRollInfo> infos = userRollInfoService.getAllRollInfoByRid(rollBookId);
 		
-		String[] titles = new String[] { "姓名", "电话号码", "点名时间", "距离"};
+		String[] titles = new String[] { "姓名", "电话号码", "点名时间", "点名状态"};
 		Map<User, List<UserRollInfo>> datas = generateXlsDatas(rollBookUsers, infos);
 
 		exportToXLS(response, datas, titles);
