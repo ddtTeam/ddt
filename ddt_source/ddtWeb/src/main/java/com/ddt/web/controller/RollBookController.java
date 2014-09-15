@@ -194,50 +194,41 @@ public class RollBookController extends BaseController {
 	@RequestMapping("save")
 	public ModelAndView save(HttpServletRequest request,
 			HttpServletResponse response) {
-		ModelAndView view = new ModelAndView("info");
-		
-		try {
-			long rid = ServletRequestUtils.getLongParameter(request, "id", 0);
-			String nameList = StringUtils.trim(ServletRequestUtils.getStringParameter(
-					request, "nameList", ""));
-			long userId = getUserId();
+		long rid = ServletRequestUtils.getLongParameter(request, "id", 0);
+		String name = StringUtils.trim(ServletRequestUtils.getStringParameter(
+				request, "name", ""));
+		String validStartDate = StringUtils.trim(ServletRequestUtils
+				.getStringParameter(request, "validStartDate", ""));
+		String validEndDate = StringUtils.trim(ServletRequestUtils
+				.getStringParameter(request, "validEndDate", ""));
+		int userCount = ServletRequestUtils.getIntParameter(request,
+				"userCount", 0);
 
-			RollBook rollBook = rollBookService.getRollBookById(rid, userId);
-			if (rollBook == null) {
-				view.addObject("result", "指定点名册不存在");
-				return view;
-			}
-			
-			if (StringUtils.isEmpty(nameList)) {
-				view.addObject("result", "请填写需要添加的用户名单");
-				return view;
-			}
-			
-			String[] nameArray = nameList.split(",");
-			int count = 0;
-			for (String name : nameArray) {
-				if (StringUtils.isBlank(name)) {
-					continue;
-				}
-				count++;
-				User u = new User();
-				u.setUserName(name);
-				userService.insertUser(u);
-				
-				RollBookUser rollBookUser = new RollBookUser();
-				rollBookUser.setBookId(rid);
-				rollBookUser.setUserId(u.getId());
-				userService.insertRollBookUser(rollBookUser);
-			}
-			
-			rollBook.setUserCount(rollBook.getUserCount() + count);
-			rollBookService.updateRollBook(rollBook);
-			view.addObject("result", "添加成功");
-		} catch (Exception e) {
-			view.addObject("result", "添加异常");
+		long userId = getUserId();
+
+		boolean isAdd = false;
+
+		RollBook rollBook = rollBookService.getRollBookById(rid, userId);
+		if (rollBook == null) {
+			rollBook = new RollBook();
+			isAdd = true;
 		}
-		
-		return view;
+
+		rollBook.setName(name);
+		rollBook.setUserCount(userCount);
+		rollBook.setUserId(userId);
+		rollBook.setValidStartTime(DateUtils.parseStringToDate(
+				DateUtils.DATE_FORMAT, validStartDate));
+		rollBook.setValidEndTime(DateUtils.parseStringToDate(
+				DateUtils.DATE_FORMAT, validEndDate));
+
+		if (isAdd) {
+			rollBookService.addRollBook(rollBook);
+		} else {
+			rollBookService.updateRollBook(rollBook);
+		}
+
+		return new ModelAndView(new RedirectView("/rollbook/list"));
 	}
 
 	/**
@@ -436,24 +427,49 @@ public class RollBookController extends BaseController {
 	@RequestMapping("useraddDetail")
 	public ModelAndView useraddDetail(HttpServletRequest request,
 			HttpServletResponse response) {
-		ModelAndView view = new ModelAndView();
+		ModelAndView view = new ModelAndView("info");
+		
+		try {
+			long rid = ServletRequestUtils.getLongParameter(request, "id", 0);
+			String nameList = StringUtils.trim(ServletRequestUtils.getStringParameter(
+					request, "nameList", ""));
+			long userId = getUserId();
 
-		int page = ServletRequestUtils.getIntParameter(request, "page", 1);
-		long rollInfoId = ServletRequestUtils.getLongParameter(request,
-				"roll_info_id", 0);
-
-		Pagination pagination = new Pagination();
-		pagination.setPage(page);
-
-		long userId = getUserId();
-
-		List<UserRollInfo> userRollInfos = rollBookService.getUserRollInfoList(
-				userId, rollInfoId, pagination.getLimit(),
-				pagination.getOffset());
-
-		view.addObject("userRollInfos", userRollInfos);
-		view.addObject("page", page);
-
+			RollBook rollBook = rollBookService.getRollBookById(rid, userId);
+			if (rollBook == null) {
+				view.addObject("result", "指定点名册不存在");
+				return view;
+			}
+			
+			if (StringUtils.isEmpty(nameList)) {
+				view.addObject("result", "请填写需要添加的用户名单");
+				return view;
+			}
+			
+			String[] nameArray = nameList.split(",");
+			int count = 0;
+			for (String name : nameArray) {
+				if (StringUtils.isBlank(name)) {
+					continue;
+				}
+				count++;
+				User u = new User();
+				u.setUserName(name);
+				userService.insertUser(u);
+				
+				RollBookUser rollBookUser = new RollBookUser();
+				rollBookUser.setBookId(rid);
+				rollBookUser.setUserId(u.getId());
+				userService.insertRollBookUser(rollBookUser);
+			}
+			
+			rollBook.setUserCount(rollBook.getUserCount() + count);
+			rollBookService.updateRollBook(rollBook);
+			view.addObject("result", "添加成功");
+		} catch (Exception e) {
+			view.addObject("result", "添加异常");
+		}
+		
 		return view;
 	}
 	
