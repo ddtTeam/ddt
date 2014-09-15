@@ -25,9 +25,9 @@
                     <form class="fixform" action="" name="roll_book_form">
                     	<input type="hidden" name="rid" id="rid" value="<#if book??>${book.id}</#if>">
                         <fieldset>
-                            <legend>新增用户</legend>
-                            <p><span>名称：</span><input type="text" value="<#if book??>${book.name}</#if>"></p>
-                            <p><span>姓名列表：</span><textarea name="nameList" id="nameList"></textarea></p>
+                            <legend>新增用户(添加多个请用<font color="red">逗号(英文半角)</font>分割)</legend>
+                            <p><span>名称：</span><#if book??>${book.name}</#if></p>
+                            <p><span>姓名列表：</span><textarea name="nameList" id="nameList" style="width:258px;height:100px"></textarea></p>
                             <div class="btns">
                                 <p class="save"><a href="javascript:void(0)" class="submit" id="userAdd"><span>保存</span></a></p>
                             </div>
