@@ -35,6 +35,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.ddt.core.bean.Pagination;
 import com.ddt.core.meta.RollBook;
 import com.ddt.core.meta.RollBookInfo;
+import com.ddt.core.meta.RollBookUser;
 import com.ddt.core.meta.User;
 import com.ddt.core.meta.UserRollInfo;
 import com.ddt.core.service.RollBookInfoService;
@@ -182,7 +183,7 @@ public class RollBookController extends BaseController {
 
 		return view;
 	}
-
+	
 	/**
 	 * 保存点名册
 	 * 
@@ -193,42 +194,50 @@ public class RollBookController extends BaseController {
 	@RequestMapping("save")
 	public ModelAndView save(HttpServletRequest request,
 			HttpServletResponse response) {
+		ModelAndView view = new ModelAndView("info");
+		
+		try {
+			long rid = ServletRequestUtils.getLongParameter(request, "id", 0);
+			String nameList = StringUtils.trim(ServletRequestUtils.getStringParameter(
+					request, "nameList", ""));
+			long userId = getUserId();
 
-		long rid = ServletRequestUtils.getLongParameter(request, "id", 0);
-		String name = StringUtils.trim(ServletRequestUtils.getStringParameter(
-				request, "name", ""));
-		String validStartDate = StringUtils.trim(ServletRequestUtils
-				.getStringParameter(request, "validStartDate", ""));
-		String validEndDate = StringUtils.trim(ServletRequestUtils
-				.getStringParameter(request, "validEndDate", ""));
-		int userCount = ServletRequestUtils.getIntParameter(request,
-				"userCount", 0);
-
-		long userId = getUserId();
-
-		boolean isAdd = false;
-
-		RollBook rollBook = rollBookService.getRollBookById(rid, userId);
-		if (rollBook == null) {
-			rollBook = new RollBook();
-			isAdd = true;
-		}
-
-		rollBook.setName(name);
-		rollBook.setUserCount(userCount);
-		rollBook.setUserId(userId);
-		rollBook.setValidStartTime(DateUtils.parseStringToDate(
-				DateUtils.DATE_FORMAT, validStartDate));
-		rollBook.setValidEndTime(DateUtils.parseStringToDate(
-				DateUtils.DATE_FORMAT, validEndDate));
-
-		if (isAdd) {
-			rollBookService.addRollBook(rollBook);
-		} else {
+			RollBook rollBook = rollBookService.getRollBookById(rid, userId);
+			if (rollBook == null) {
+				view.addObject("result", "指定点名册不存在");
+				return view;
+			}
+			
+			if (StringUtils.isEmpty(nameList)) {
+				view.addObject("result", "请填写需要添加的用户名单");
+				return view;
+			}
+			
+			String[] nameArray = nameList.split(",");
+			int count = 0;
+			for (String name : nameArray) {
+				if (StringUtils.isBlank(name)) {
+					continue;
+				}
+				count++;
+				User u = new User();
+				u.setUserName(name);
+				userService.insertUser(u);
+				
+				RollBookUser rollBookUser = new RollBookUser();
+				rollBookUser.setBookId(rid);
+				rollBookUser.setUserId(u.getId());
+				userService.insertRollBookUser(rollBookUser);
+			}
+			
+			rollBook.setUserCount(rollBook.getUserCount() + count);
 			rollBookService.updateRollBook(rollBook);
+			view.addObject("result", "添加成功");
+		} catch (Exception e) {
+			view.addObject("result", "添加异常");
 		}
-
-		return new ModelAndView(new RedirectView("/rollbook/list"));
+		
+		return view;
 	}
 
 	/**
@@ -411,6 +420,21 @@ public class RollBookController extends BaseController {
 	 */
 	@RequestMapping("useradd")
 	public ModelAndView userAdd(HttpServletRequest request,
+			HttpServletResponse response) {
+		ModelAndView view = new ModelAndView("rollbook/useradd");
+
+		long rid = ServletRequestUtils.getLongParameter(request, "rid", 0);
+		RollBook book = rollBookService.getRollBookById(rid, getUserId());
+		view.addObject("book", book);
+		
+		return view;
+	}
+	
+	/**
+	 * 增加点名册用户
+	 */
+	@RequestMapping("useraddDetail")
+	public ModelAndView useraddDetail(HttpServletRequest request,
 			HttpServletResponse response) {
 		ModelAndView view = new ModelAndView();
 

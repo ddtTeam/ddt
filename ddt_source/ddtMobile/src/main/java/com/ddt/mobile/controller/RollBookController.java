@@ -136,6 +136,13 @@ public class RollBookController extends BaseController {
 		long infoId = ServletRequestUtils.getLongParameter(request, "infoId", 0);
 		
 		User user = userService.getUserByWxNumber(wx);
+		
+		UserRollInfo userRollInfo = userRollInfoService.getUserRollInfoByIds(infoId, user.getId());
+		
+		if (userRollInfo != null && userRollInfo.getRollTime() != null) {
+			return userRolled(request, response);
+		}
+		
 		//获取点名册关联用户
 		User u = userService.getUserByNameAndInfoId(user.getUserName(), infoId);
 		
