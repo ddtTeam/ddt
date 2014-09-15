@@ -51,7 +51,7 @@ $(function() {
 			return;
 		}
 		
-		$.post("/rollbook/useraddDetail", {rid:rid, nameList:nameList},
+		$.post("/rollbook/useraddDetail", {id:rid, nameList:nameList},
 				function(data){
 					alert(data.result);
 		}, "json");
