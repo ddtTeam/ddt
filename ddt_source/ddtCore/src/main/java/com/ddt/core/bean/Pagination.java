@@ -16,7 +16,7 @@ public class Pagination {
 	
 	private int page;
 	
-	private int limit = 5; 
+	private int limit = 10; 
 	
 	private int offset;
 
