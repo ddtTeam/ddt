@@ -32,21 +32,21 @@
     <div class="main" style="text-align:left;padding-left:200px">
     	<div class="title">1 关注公众号:</div>
 		<div class="detail">
-			<div class="first">扫描二维码 或 搜索"idianming" 关注“i点名”。</div>
+			<div class="first">微信搜索“idianming”或扫描二维码，关注“i点名”</div>
 		</div>
 		<div class="title">2 注册：</div>
 		<div class="detail">
-				<div class="first">点击公众号“我爱点名”，按照文本回复格式完成注册。</div>
+				<div class="first">“i点名”中单击“我爱点名”按钮，按提示注册，例如“张三+15812345678+1234”</div>
 		</div>
-		<div class="title">3 电脑上传点名册：</div>
+		<div class="title">3 电脑PC上传点名册：</div>
 	    <div class="detail">
-			<div class="first">登陆www.idianming.net，新建-->下载模板，按模板上传点名册
+			<div class="first">电脑登陆www.idianming.net，按模板上传只包含名字的点名册,并通知您点名册中的成员也通过“i点名”公众号完成注册 
 	        </div>
 	    </div>
 		<div class="title">4 微信点名</div>
 		<div class="detail">
 			<div class="first">
-        		 我爱点名-->进入列表，选择点名册-->开始，口头告知" 被点人”随机码；“被点人”：被点名输入随机码，进入点名册-->点名.
+        		 微信点名。单击“我爱点名”按钮，按提示找到您的点名册，单击“开始点名”，系统将回复您一个随机码，如“168888”，将随机码告知点名册中成员。他们点击“我被点名”，在对话框输入您提供的随机码如“168888”，按提示，找到您的点名册，点击“点名”即可。返回您的点名册列表，查看点名记录，或电脑登陆www.idianming.net下载点名记录。
         	</div>
         </div>
 	    <div class="title">点名流程图</div>
