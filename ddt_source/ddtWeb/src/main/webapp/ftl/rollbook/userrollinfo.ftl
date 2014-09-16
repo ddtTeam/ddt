@@ -22,7 +22,7 @@
                         <th style="width:25%">用户名</th>
                         <th style="width:25%">手机号</th>
                         <th style="width:25%">点名时间</th>
-                        <th style="width:25%">距离(米)</th>
+                        <th style="width:25%">点名状态</th>
                     </tr>
 	                <#if userRollInfos?? && userRollInfos?size &gt; 0>
 	                	<#list userRollInfos as user>

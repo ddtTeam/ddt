@@ -146,6 +146,12 @@ public class RollBookController extends BaseController {
 			user = userService.getWxUserByWxNumber(wx);
 		}
 		
+		UserRollInfo userRollInfo = userRollInfoService.getUserRollInfoByIds(infoId, user.getId());
+		
+		if (userRollInfo != null && userRollInfo.getRollTime() != null) {
+			return userRolled(request, response);
+		}
+		
 		//获取点名册关联用户
 		User u = userService.getUserByNameAndInfoId(user.getUserName(), infoId);
 		

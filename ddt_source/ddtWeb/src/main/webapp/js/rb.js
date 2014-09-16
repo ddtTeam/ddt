@@ -36,4 +36,24 @@ $(function() {
 		
 		document.roll_book_info_form.submit();
 	});
+	
+	$("#userAdd").on("click", function() {
+		var rid = $("#rid").val();
+		var nameList = $("#nameList").val();
+		
+		if (rid <= 0) {
+			alert("请指定点名册");
+			return;
+		}
+		
+		if (nameList == null || $.trim(nameList) == "") {
+			alert("请填写需要添加的用户名单");
+			return;
+		}
+		
+		$.post("/rollbook/useraddDetail", {id:rid, nameList:nameList},
+				function(data){
+					alert(data.result);
+		}, "json");
+	});
 });

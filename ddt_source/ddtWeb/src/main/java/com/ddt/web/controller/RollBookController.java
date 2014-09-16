@@ -35,6 +35,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.ddt.core.bean.Pagination;
 import com.ddt.core.meta.RollBook;
 import com.ddt.core.meta.RollBookInfo;
+import com.ddt.core.meta.RollBookUser;
 import com.ddt.core.meta.User;
 import com.ddt.core.meta.UserRollInfo;
 import com.ddt.core.service.RollBookInfoService;
@@ -182,7 +183,7 @@ public class RollBookController extends BaseController {
 
 		return view;
 	}
-
+	
 	/**
 	 * 保存点名册
 	 * 
@@ -193,7 +194,6 @@ public class RollBookController extends BaseController {
 	@RequestMapping("save")
 	public ModelAndView save(HttpServletRequest request,
 			HttpServletResponse response) {
-
 		long rid = ServletRequestUtils.getLongParameter(request, "id", 0);
 		String name = StringUtils.trim(ServletRequestUtils.getStringParameter(
 				request, "name", ""));
@@ -412,24 +412,64 @@ public class RollBookController extends BaseController {
 	@RequestMapping("useradd")
 	public ModelAndView userAdd(HttpServletRequest request,
 			HttpServletResponse response) {
-		ModelAndView view = new ModelAndView();
+		ModelAndView view = new ModelAndView("rollbook/useradd");
 
-		int page = ServletRequestUtils.getIntParameter(request, "page", 1);
-		long rollInfoId = ServletRequestUtils.getLongParameter(request,
-				"roll_info_id", 0);
+		long rid = ServletRequestUtils.getLongParameter(request, "rid", 0);
+		RollBook book = rollBookService.getRollBookById(rid, getUserId());
+		view.addObject("book", book);
+		
+		return view;
+	}
+	
+	/**
+	 * 增加点名册用户
+	 */
+	@RequestMapping("useraddDetail")
+	public ModelAndView useraddDetail(HttpServletRequest request,
+			HttpServletResponse response) {
+		ModelAndView view = new ModelAndView("info");
+		
+		try {
+			long rid = ServletRequestUtils.getLongParameter(request, "id", 0);
+			String nameList = StringUtils.trim(ServletRequestUtils.getStringParameter(
+					request, "nameList", ""));
+			long userId = getUserId();
 
-		Pagination pagination = new Pagination();
-		pagination.setPage(page);
-
-		long userId = getUserId();
-
-		List<UserRollInfo> userRollInfos = rollBookService.getUserRollInfoList(
-				userId, rollInfoId, pagination.getLimit(),
-				pagination.getOffset());
-
-		view.addObject("userRollInfos", userRollInfos);
-		view.addObject("page", page);
-
+			RollBook rollBook = rollBookService.getRollBookById(rid, userId);
+			if (rollBook == null) {
+				view.addObject("result", "指定点名册不存在");
+				return view;
+			}
+			
+			if (StringUtils.isEmpty(nameList)) {
+				view.addObject("result", "请填写需要添加的用户名单");
+				return view;
+			}
+			
+			String[] nameArray = nameList.split(",");
+			int count = 0;
+			for (String name : nameArray) {
+				if (StringUtils.isBlank(name)) {
+					continue;
+				}
+				count++;
+				User u = new User();
+				u.setUserName(name);
+				userService.insertUser(u);
+				
+				RollBookUser rollBookUser = new RollBookUser();
+				rollBookUser.setBookId(rid);
+				rollBookUser.setUserId(u.getId());
+				userService.insertRollBookUser(rollBookUser);
+			}
+			
+			rollBook.setUserCount(rollBook.getUserCount() + count);
+			rollBookService.updateRollBook(rollBook);
+			view.addObject("result", "添加成功");
+		} catch (Exception e) {
+			view.addObject("result", "添加异常");
+		}
+		
 		return view;
 	}
 	
@@ -449,7 +489,7 @@ public class RollBookController extends BaseController {
 		List<UserRollInfo> userRollInfos = rollBookService.getUserRollInfoList(
 				userId, rollInfoId, Integer.MAX_VALUE, 0);
 
-		String[] titles = new String[] { "姓名", "电话号码", "点名时间", "距离", "备注" };
+		String[] titles = new String[] { "姓名", "电话号码", "点名时间", "点名状态", "备注" };
 		List<Object[]> datas = generateDatas(userRollInfos, titles);
 
 		exportXLS(response, datas, titles);
@@ -471,7 +511,7 @@ public class RollBookController extends BaseController {
 		
 		List<UserRollInfo> infos = userRollInfoService.getAllRollInfoByRid(rollBookId);
 		
-		String[] titles = new String[] { "姓名", "电话号码", "点名时间", "距离"};
+		String[] titles = new String[] { "姓名", "电话号码", "点名时间", "点名状态"};
 		Map<User, List<UserRollInfo>> datas = generateXlsDatas(rollBookUsers, infos);
 
 		exportToXLS(response, datas, titles);
