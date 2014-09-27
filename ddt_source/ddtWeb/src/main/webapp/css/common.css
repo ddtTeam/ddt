@@ -1,0 +1,17 @@
+.footer{
+	margin:0 auto;
+	width: 900px;
+}
+.footer .footer-p1{
+	font-size: 12px;
+	color: #888;
+	margin-left: 250px;
+}
+.footer .footer-p2{
+	margin-left: 330px;
+	font-size: 12px;
+	color: #888;
+}
+.footer .instructions{
+
+}

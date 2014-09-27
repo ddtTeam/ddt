@@ -1,46 +1,41 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!doctype html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title></title>
-<link rel="stylesheet" type="text/css" href="/css/main.css">
-<link rel="stylesheet" type="text/css" href="/css/fix.css">
-<script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
-<script src="/js/My97DatePicker/WdatePicker.js"></script>
-<script type="text/javascript" src="/js/My97DatePicker/calendar.js"></script>
-<script type="text/javascript" src="/js/plupload/js/plupload.full.min.js"></script>
-<script type="text/javascript" src="/js/plupload/js/i18n/zh_CN.js"></script>
-<script type="text/javascript" src="/js/plupload/js/jquery.plupload.queue/jquery.plupload.queue.js"></script>
-<script type="text/javascript" src="/js/upload.js"></script>
-<script type="text/javascript" src="/js/rb.js"></script>
-
+	<meta charset="UTF-8">
+	<title>爱点名-杭州雍睦科技</title>
+	<link rel="stylesheet" href="/css/newplus.css">
+	<link rel="stylesheet" href="/css/common.css">
+	<link rel="stylesheet" href="/css/header.css">
+	<script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
+	<script src="/js/My97DatePicker/WdatePicker.js"></script>
+	<script type="text/javascript" src="/js/My97DatePicker/calendar.js"></script>
+	<script type="text/javascript" src="/js/plupload/js/plupload.full.min.js"></script>
+	<script type="text/javascript" src="/js/plupload/js/i18n/zh_CN.js"></script>
+	<script type="text/javascript" src="/js/plupload/js/jquery.plupload.queue/jquery.plupload.queue.js"></script>
+	<script type="text/javascript" src="/js/upload.js"></script>
+	<script type="text/javascript" src="/js/rb.js"></script>
 </head>
 <body>
-<div id="wrapper">
-    <#include "/common/head.ftl">
-    <div id="out-content">
-        <div id="content-box">
-            <div class="content">
-                <div class="form">
-                    <form class="fixform" action="" name="roll_book_form">
-                    	<input type="hidden" name="rid" id="rid" value="<#if book??>${book.id}</#if>">
-                        <fieldset>
-                            <legend>新增用户(添加多个请用<font color="red">逗号(英文半角)</font>分割)</legend>
-                            <p><span>名称：</span><#if book??>${book.name}</#if></p>
-                            <p><span>姓名列表：</span><textarea name="nameList" id="nameList" style="width:258px;height:100px"></textarea></p>
-                            <div class="btns">
-                                <p class="save"><a href="javascript:void(0)" class="submit" id="userAdd"><span>保存</span></a></p>
-                            </div>
-                        </fieldset>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <#include "/common/sidebar.ftl">
-    </div>
-</div>
-<div id="footer" class="footer">
-    <#include "/common/footer.ftl">
-</div>
+	<#include "/common/head.ftl">
+	<div class="container">
+		<div class="logo">
+			<img src="/images/edit.jpg" alt="">
+			<span>新增用户(添加多个请用<font color="red">逗号(英文半角)</font>分割)</span>
+		</div>
+		<div class="content">
+			<input type="hidden" name="rid" id="rid" value="<#if book??>${book.id}</#if>">
+			<div class="name">
+				<span>名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称:<#if book??>${book.name}</#if></span>
+			</div>
+			<div class="pepole">
+				<span>用户名单:</span>
+				<textarea name="nameList" id="nameList" style="width:258px;height:100px"></textarea>
+			</div>
+			<div class="submit">
+				<button type="button" id="userAdd">保存</button>
+			</div>
+		</div>
+	</div>
+	<#include "/common/footer.ftl">
 </body>
 </html>

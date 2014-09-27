@@ -1,0 +1,145 @@
+
+* {
+ margin: 0;
+ padding: 0;
+}
+html, body {
+ height: 100%;
+ text-align: center;
+ font: 12px/1.4 Verdana, sans-serif;
+ background: #efefef;
+ position: relative;
+}
+#wrapper {
+ min-width: 960px;
+ min-height: 100%;
+ margin: 0 auto;
+ width: 90%;
+ background: #fff;
+
+}
+* html #wrapper {
+ height: 100%;
+}
+.header{width: 100%;height: 100px;}
+.logo,.bannerwrap{float: left;}
+.bannerwrap{width: 100%;margin-left: -200px;}
+.logo{width: 200px;height: 100px;background: #9c0;}
+.banner{margin-left: 200px;height: 100px;background: #90c;}
+
+.main{position: relative;width: 100%;margin-top: 25px;clear: both;padding-bottom: 50px;}
+
+.main-inner {
+    width: 1000px;
+    height: 600px;
+    overflow: visible;
+    margin: 0 auto;
+    position: relative;
+    clear: both;
+    background-image: url(/images/fengxinzi.jpg);
+    background-position: 50% 0%;
+    background-repeat: no-repeat no-repeat;
+    background-size:contain;
+}
+
+.main .loginbox{
+    width: 360px;
+    height: 240px;
+    padding: 13px 14px 15px;
+    top: 62px;
+    left: 50%;
+    margin-left: 90px;
+    text-align: left;
+    position: absolute;
+    z-index:2;
+    background: #fff;
+}
+
+.main .theme-bg {
+    display: block;
+    position: absolute;
+    width: 605px;
+    height: 600px;
+    left: 0px;
+    top: 0px;
+    cursor: pointer;
+}
+
+.main .theme-ctrl {
+    position: absolute;
+    right: 100px;
+    bottom: 12px;
+}
+
+.main .lgnform{
+    margin: 0 auto;
+    width: 270px;
+    height: 150px;
+}
+.lgnform fieldset{border:0;padding: 0;}
+.lgnform legend{
+        font-size: 20px;
+letter-spacing: 3px;
+width: 55px;
+}
+.lgnform p{margin-top: 15px;}
+.lgnForm .inputTxt{width: 258px;height: 38px;border: 1px solid #ccc;border-radius: 2px;padding-left: 10px;font-size: 14px;color: #999;}
+
+.lgnForm .inputBtn{
+        width: 110px;
+        height: 33px;
+        background-color: #6c3;
+        border: 1px solid #3c0;
+        border-radius: 2px;
+        color: #fff;
+        font-size: 16px;
+        font-weight: bold;
+        letter-spacing: 3px;
+        line-height: 33px;
+        cursor: pointer;
+}
+
+.footer {
+    height: 100px;
+    background: #6c3;
+    width:100%;
+    bottom: 20px;
+    right: 0;
+    margin-top: 20px;
+    padding-top:20px;
+    padding-bottom:20px;
+    margin: -50px auto 0;
+}
+
+.footer .qrcode {
+    width: 80px;
+    height: 80px;
+    left: 50%;
+    top: 0;
+    padding-top:10px;
+    padding-bottom:10px;
+}
+
+/**icons**/
+.ddt-icon {
+    background: url("/images/bg.png") no-repeat;
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    vertical-align: middle;
+}
+
+.icon-prev {
+    background-position: 0 -457px;
+    margin-right: 7px;
+}
+
+.icon-next {
+   background-position: -35px -457px ;
+}
+
+.error_log {
+        height:20px;
+        font-size: 14px;
+        color: red;
+}

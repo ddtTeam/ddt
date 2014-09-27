@@ -1,0 +1,231 @@
+body{
+	padding: 0;
+	margin:0; 
+	background-color:#e5e5e5;  
+}
+
+/* 中间表格部分 */
+.container{
+	position: relative;
+	margin: -3px auto 0; 
+	width: 900px;
+	min-height: 454px;
+	background-color: #fff; 
+}
+
+.container .head{
+	background-color: #F4F4F4;
+	height: 24px;
+	padding: 7px 6px;
+}
+
+.container .newplus{
+    width:33px;
+    background:#0990b2; 
+    padding:3px 7px;  
+    border-radius:4px;
+    position:absolute; 
+    left:10px;
+}
+.container  .newplus span{
+    display:block; 
+    width:0; 
+    height:0; 
+    border-width:10px 10px 0; 
+    border-style:solid; 
+    border-color:#0990b2 transparent transparent ; 
+    position:absolute; 
+    top:22px;  
+    left:50%;/* 三角形居中显示 */
+    margin-left:-10px;/* 三角形居中显示 */
+}
+.container .newplus a{
+	text-decoration: none;
+	font-size: 15px;
+	color:#fff; 
+}
+
+.head .search{
+	float: right;
+	margin-right: 40px;
+	padding: 1px; 
+
+}
+.head .search .txt{
+	border-radius: 3px;
+	color: #333;
+	border:1px solid #ddd;
+	width: 160px;
+	padding: 3px;
+	font-size: 12px;
+	line-height: 14px; 
+	float: left;
+}
+.head .search .txt:hover{
+	border-color:#7DBDE2;
+	box-shadow:0 0 5px #7DBDE2;
+}
+.head .search .button{
+	position: absolute;
+	height: 18px;
+	width: 28px;
+	font-size: 14px;
+	line-height: 14px;
+	padding:2px 7px;
+	margin-left: -1px;
+	margin-top: 2px;	
+	background-color: #0990b2;
+	font-family: 微软雅黑;
+	color: #fff;
+	text-decoration:none;		
+}
+/* 表格部分 */
+.container .list{
+	width: 900px;
+	border-collapse:collapse; 
+}
+.list tr{
+	height: 30px;
+	color: #666;
+	border-top: 1px solid #dedede;
+	border-bottom: 1px solid #dedede;
+}
+.list thead tr th{
+	font-size: 15px;
+	padding: 0;
+}
+.list thead tr th:hover,.list tbody td:hover{
+	color:#0657B2;
+	cursor: pointer;
+	text-decoration: underline;
+}
+.list tbody td{
+	font-size: 13px;
+	text-align: center;
+	padding: 0;
+}
+.list .one{
+	height: 30px;
+	background-color: #FFF;
+}
+.list .two{
+	height: 30px;
+	background-color: #dff0d8;
+}
+.list .three{
+	height: 30px;
+	background-color: #f2dede;
+}
+.list .four{
+	height: 30px;
+	background-color: #fcf8e3;
+}
+.list .five{
+	height: 30px;
+	background-color: #d9edf7;
+}
+
+
+
+/* 分页部分 */
+.page-mod {
+	margin-top:8px;
+	margin-right: 8px; 
+	font-size: 12px;
+	background-color: #FFF;
+	float: right;
+}
+.page-mod a{ 
+	float:left;
+	margin-right: 2px;
+	padding: 0 6px;
+	height: 19px;
+	font-size: 14px;
+	line-height: 19px;
+	border-width:1px;
+	border-style: solid;
+	color: #8F8F8F;
+	border-color:#E3E4DD; 
+	background-color: #FFF;
+	overflow: hidden; 
+	text-decoration: none;
+
+}
+.page-mod a:hover{
+	background-color: #0990b2;
+	border-color: #0990b2;
+	color: #FFF;
+	font-weight: 400;
+	text-decoration: none;
+}
+.page-mod .page-prev,.page-mod .page-next,.page-mod .page-last,.page-mod button{
+		background:url(images/bg_pages.png) no-repeat;
+}
+.page-mod .page-prev{
+	background-position: 7px -26px;
+	padding: 0;
+	width: 19px;
+	text-indent: -999px;
+	background-color: #FFF;
+}
+.page-mod .page-prev:hover{
+	background-position:-21px -51px; 
+}
+.page-mod .txt{
+	 width:35px;
+	 height: 13px;
+	 padding: 3px;
+	 outline: none;
+	 font-size: 12px;
+	 line-height: 14px;
+	 color: #333;
+	 border:1px solid #ddd;
+	 border-radius: 3px;
+}
+.page-mod .page-next{
+	padding: 0 14px 0 7px;
+	background-position: 47px 6px;
+	font-size: 12px;
+	background-color: #FFF;
+}
+.page-mod .page-next:hover{
+	background-position:19px -19px;
+}
+.page-mod .page-go em{
+	height: 21px;
+	line-height: 21px;
+	color: #5A5A5A;
+	font-style: normal;
+}
+.page-mod .page-go{
+	float: left;
+	padding-left: 3px;
+	height:24px;
+	font-size: 12px;
+	line-height: 21px;
+	overflow: hidden;	
+	font-family:"Arial";
+}
+.page-mod .page-last{
+	background-position: 6px -58px;
+	padding: 0px;
+	width: 19px;
+	text-indent: -999px;
+	background-color: #FFF; 
+}
+.page-mod .page-last:hover{
+	background-position:-18px -83px;
+}
+.page-mod button{
+	/* float: left; */
+	cursor: pointer;
+	margin-left: 5px;
+	padding: 0;
+	width: 35px;
+	height: 21px;
+	font-size: 12px;
+	color: #5A5A5A;
+	background-position:0 -129px;
+	border:0 none;
+	vertical-align:middle;
+}

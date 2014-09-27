@@ -1,38 +1,38 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!doctype html>
+<html lang="en">
 <#include "/common/pager.ftl">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title></title>
-<link rel="stylesheet" type="text/css" href="/css/main.css">
-<link rel="stylesheet" type="text/css" href="/css/pager.css">
-<script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
+	<meta charset="UTF-8">
+	<title>爱点名-杭州雍睦科技</title>
+	<link rel="stylesheet" href="/css/home.css">
+	<link rel="stylesheet" href="/css/common.css">
+	<link rel="stylesheet" href="/css/header.css">
+	<link rel="stylesheet" type="text/css" href="/css/pager.css">
+	<script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
 </head>
 <body>
-<div id="wrapper">
-    <#include "/common/head.ftl">
-    <div id="out-content">
-        <div id="content-box">
-            <div class="content">
-            	<div class="querydiv">
-                    <span class="new">
-                    	<p class="query_btn"><a href="/rollbook/useradd?rid=${rid}"><input type="button" value="新增" class="go"></a></p>
-                    </span>
-                </div>
-                <div class="query_res">
-                  <input type="hidden" id="cur_page">
-                  <input type="hidden" id="show_per_page">
-                  <table class="tableData">
-                    <tr class="">
-                        <th style="width:10%">微信号</th>
-                        <th style="width:16%">用户名</th>
-                        <th style="width:16%">手机号</th>
-                        <th style="width:11%">创建时间</th>
-                        <th style="width:20%">操作</th>
-                    </tr>
-                    <#if users?? && users?size &gt; 0>
+	<#include "/common/head.ftl">
+	<div class="container">
+			<div class="head">
+				<div class="newplus">
+        			<span></span>
+        			<a href="/rollbook/useradd?rid=${rid}">新增</a>
+        		</div>
+			</div>
+			<table class="list">
+				<thead>
+					<tr>
+						<th class="wxname" width="190px">微信号</th>
+						<th class="username" width="190px">用户名</th>
+						<th class="mobile" width="190px">手机号</th>
+						<th class="create-time" width="90px">创建时间</th>
+						<th class="operation" width="240px">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<#if users?? && users?size &gt; 0>
                     	<#list users as user>
-                    		<tr>
+                    		<tr <#if user_index % 2 == 0>class="two"<#else>class="one"</#if>>
 	                            <td>${user.wxName!''}</td>
 	                            <td>${user.userName!''}</td>
 	                            <td>${user.mobile!''}</td>
@@ -41,28 +41,10 @@
                         	</tr>
                     	</#list>
                     </#if>
-                  </table>
-                  <@lpager total=totalPage index=page url=pageUrl />
-                </div>
-
-            </div>
-    
-        </div>
-        <#include "/common/sidebar.ftl">
-    </div>
-</div>
-<div id="footer" class="footer">
-    <#include "/common/footer.ftl">
-</div>
-<script type="text/javascript">
-    (function(){
-        $('.query_value').focus(function(){
-            $('#for_query').css('display','none');
-        }).blur(function(){
-            $('#for_query').css('display','block');            
-        });
-
-    })(jQuery);
-</script>
+				</tbody>
+			</table>
+			<@lpager total=totalPage index=page url=pageUrl />
+	</div>
+	<#include "/common/footer.ftl">
 </body>
 </html>

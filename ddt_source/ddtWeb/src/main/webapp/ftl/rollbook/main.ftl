@@ -1,47 +1,49 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!doctype html>
+<html lang="en">
 <#include "/common/pager.ftl">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title></title>
-<link rel="stylesheet" type="text/css" href="/css/main.css">
-<link rel="stylesheet" type="text/css" href="/css/pager.css">
-<script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
+	<meta charset="UTF-8">
+	<title>爱点名-杭州雍睦科技</title>
+	<link rel="stylesheet" href="/css/home.css">
+	<link rel="stylesheet" href="/css/common.css">
+	<link rel="stylesheet" href="/css/header.css">
+	<link rel="stylesheet" type="text/css" href="/css/pager.css">
+	<script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript">
+		function queryList() {
+			var qValue = $("#qValue").val();
+			window.location.href="/rollbook/list?query=" + qValue;
+		}
+	</script>
 </head>
 <body>
-<div id="wrapper">
-    <#include "/common/head.ftl">
-    <div id="out-content">
-        <div id="content-box">
-            <div class="content">
-                <div class="querydiv">
-                    <form class="search_form" method="post" action="/rollbook/list"> 
-                        <p class="input">
-                          <input type="text" name="query" class="query_value" value="<#if query??>${query!''}</#if>"/> 
-                          <label for="query" id="for_query" class="keyword">查询条件</label>
-                        </p>
-                        <p class="query_btn">
-                          <input type="submit" class="go" alt="Search" title="Search" value="查询"/>
-                        </p>
-                    </form>
-                    <span class="new">
-                    	<p class="query_btn"><input type="button" value="新增" onclick="window.location.href='/rollbook/view'" class="go"></p>
-                    </span>
-                </div>
-                <div class="query_res">
-                  <input type="hidden" id="cur_page">
-                  <input type="hidden" id="show_per_page">
-                  <table class="tableData">
-                    <tr class="">
-                        <th style="width:15%">名称</th>
-                        <th style="width:25%">开始时间</th>
-                        <th style="width:25%">结束时间</th>
-                        <th style="width:10%">总人数</th>
-                        <th style="width:25%" colspan=4>操作</th>
-                    </tr>
-                    <#if rollBooks?? && rollBooks?size &gt; 0>
+	<#include "/common/head.ftl">
+	<div class="container">
+			<div class="head">
+				<div class="newplus">
+        			<span></span>
+        			<a href="/rollbook/view">新增</a>
+        		</div>
+			
+				<div class="search">
+					<input type="text" name="query" id="qValue" class="txt"  placeholder="请输入搜索关键字" value="<#if query??>${query!''}</#if>"/>
+					<a href="javascript:queryList();" class="button" type="button">搜索</a>
+				</div>
+			</div>
+			<table class="list">
+				<thead>
+					<tr>
+						<th class="name" width="190px">名称</th>
+						<th class="start-time" width="190px">开始时间</th>
+						<th class="finish-time" width="190px">结束时间</th>
+						<th class="number" width="90px">总人数</th>
+						<th class="operation" colspan="4" width="240px">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<#if rollBooks?? && rollBooks?size &gt; 0>
                     	<#list rollBooks as rollBook>
-                    		<tr>
+                    		<tr <#if rollBook_index % 2 == 0>class="two"<#else>class="one"</#if>>
 	                            <td>${rollBook.name!''}</td>
 	                            <td>${rollBook.validStartTime?string('yyyy-MM-dd HH:mm:ss')}</td>
 	                            <td>${rollBook.validEndTime?string('yyyy-MM-dd HH:mm:ss')}</td>
@@ -55,28 +57,13 @@
                         	</tr>
                     	</#list>
                     </#if>
-                  </table>
-                  <@lpager total=totalPage index=page url=pageUrl />
-                </div>
+				</tbody>
 
-            </div>
-    
-        </div>
-         <#include "/common/sidebar.ftl">
-    </div>
-</div>
-<div id="footer" class="footer">
-     <#include "/common/footer.ftl">
-</div>
-<script type="text/javascript">
-    (function(){
-        $('.query_value').focus(function(){
-            $('#for_query').css('display','none');
-        }).blur(function(){
-            $('#for_query').css('display','block');            
-        });
+				
+			</table>
+			<@lpager total=totalPage index=page url=pageUrl />
+	</div>
 
-    })(jQuery);
-</script>
+<#include "/common/footer.ftl">
 </body>
 </html>

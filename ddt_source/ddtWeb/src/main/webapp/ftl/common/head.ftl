@@ -1,11 +1,22 @@
 <div class="header">
-        <div class="info_bar">
-           <p class="exit"><a href="/logout">退出</a></p>
-          <p class="uname"><#if userSession??>${userSession.userName!''}</#if></p>
-
-        </div>
-        <div class="logo"><img src="/images/logo.jpg" height="100%"></div>
-        <div class="bannerwrap">
-            <div class="banner"></div>
-        </div>
+	<div class="header-content">
+		<div class="logo">
+			<img src="/images/i.png" no-repeat alt="">
+			<span>爱点名</span>
+		</div>
+		<div class="tips">
+			<div class="user">
+				<a href="#"><#if userSession??>${userSession.userName!''}</#if></a>
+			</div>
+			<div class="quit">
+				<a href="/logout">退出</a></div>
+		</div>
+	</div>
+</div>
+<div class="menu">
+		<ul>
+			<li class="menu-li" style="cursor:pointer" onclick="window.location.href='/rollbook/list'">我的点名册</li>
+			<li class="menu-li" style="cursor:pointer">我的积分</li>
+			<li class="menu-li" style="cursor:pointer">我的</li>
+		</ul>
 </div>
