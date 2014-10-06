@@ -1,0 +1,41 @@
+.content{
+	margin-top: 45px;
+}
+.content .summary{
+	width: 100%;
+	height: 40px;
+	border-bottom: 1px solid #e5e5e5;
+
+}
+.content .summary p{
+	height: 40px;
+	text-align: center;
+	padding-top:10px; 
+	margin: 0;
+}
+.content .summary p em{
+	color: #761fd7;
+	font-weight:bold;
+}
+.content table{
+	width: 100%;
+	border-bottom:1px solid #e5e5e5; 
+	height: 50px;
+}
+.content .list .name{
+	color: #000;
+}
+.content .list .reason,.content .list .time,
+.content .list .num,.content .list .views,
+.content .list .remark{
+	color: #999;
+	font-size:0.8em;
+}
+.content .list .time,.content .list .remark{
+}
+
+.content .list .img{
+	width: 40px;
+	height: 40px;
+	vertical-align: middle;
+}

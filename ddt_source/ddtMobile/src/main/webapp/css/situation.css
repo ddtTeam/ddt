@@ -1,0 +1,35 @@
+.main{
+	width: 100%;
+	margin-top: 44px;
+}
+.main table{ 
+	border-collapse:collapse;
+	width: 100%;
+}
+.main .banner tr{
+	height: 25px;
+	text-align: center;
+	width: 100%;
+	background-color: #c5c5c5;
+	color: #333;
+}
+.main .content tr{
+	height: 50px;
+	text-align: center;
+	width: 100%;
+}
+.main .content a{
+	color: #666; 
+}
+.main .content .green {
+	background-color:#e0efd8; 
+}
+.main .content .pink {
+	background-color:#f2dedf; 
+}
+.main .content .yellow {
+	background-color:#fdf8e4; 
+}
+.main .content .blue {
+	background-color:#d9edf6; 
+}
