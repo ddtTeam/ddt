@@ -619,7 +619,7 @@ public class RollBookController extends BaseController {
 			headers.setContentDispositionFormData("attachment", "template.xlsx");
 			headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 			return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(f),
-					headers, HttpStatus.CREATED);
+					headers, HttpStatus.OK);
 
 		} catch (URISyntaxException e) {
 			e.printStackTrace();

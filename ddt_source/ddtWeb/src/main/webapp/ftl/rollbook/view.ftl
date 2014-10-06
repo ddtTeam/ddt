@@ -47,7 +47,7 @@
                 </div>
 			<div class="submit">
 				<button type="button" id="<#if rollBook?? && rollBook.id &gt; 0>save_check<#else>uploadfile</#if>">提交</button>
-				<button onclick="window.location.href='/rollbook/template'">模板</button>
+				<a href='/rollbook/template'>模板</a>
 			</div>
 		</div>
 	</div>

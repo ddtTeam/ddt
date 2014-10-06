@@ -1,50 +1,52 @@
-<html>
 <#include "/common/pager.ftl">
+<!doctype html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
-<!--强制让文档的宽度与设备的宽度保持1:1，并且文档最大的宽度比例是1.0，且不允许用户点击屏幕放大浏览；-->
-<meta content="width=320px, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
-<!--iphone设备中的safari私有meta标签，它表示：允许全屏模式浏览；-->
-<meta content="yes" name="apple-mobile-web-app-capable" />
-<!--iphone设备中的safari私有meta标签，它指定的iphone中safari顶端的状态条的样式；-->
-<meta content="black" name="apple-mobile-web-app-status-bar-style" />
-<!--告诉设备忽略将页面中的数字识别为电话号码-->
-<meta content="telephone=no" name="format-detection" />
-<link type="text/css" rel="stylesheet" href="/css/main.css"  />
-<link rel="stylesheet" type="text/css" href="/css/pager.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<!-- 忽略将数字变为电话号码： -->
+	<meta content="telephone=no" name="format-detection">
+	<!-- IOS中Safari允许全屏浏览： -->
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<!-- IOS中Safari顶端状态条样式： -->
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<link rel="stylesheet" href="/css/home.css">
+	<link rel="stylesheet" href="/css/import.css">
+	<link rel="stylesheet" href="/css/icon.css">
+	<link rel="stylesheet" href="/css/pager.css">
+	<title>爱点名</title>
 </head>
 <body>
-<div class="wrap">
-	<div class="header">
-		<div class="banner"></div>
+	<div id="wrap">
+		<!-- 头部 -->
+		<div class="header">
+			<#include "/common/header.ftl">
+		</div>
+		<!-- 中间 -->
+		<div class="main">
+			<#if rollBooks?? && rollBooks?size &gt; 0>
+				<#list rollBooks as rollBook>
+					<table class="list">
+						<tr>
+							<td style="width:60%" class="className">${rollBook.name!}</td>
+							<td style="width:20%" class="record">
+								<a href="/rollbook/rolllist?wx=${wx}&rid=${rollBook.id}">点名记录</a>
+							</td>
+							<td style="width:20%" class="startNamed">
+								<a href="/rollbook/start?wx=${wx}&rid=${rollBook.id}">点名</a>
+							</td>
+						</tr>
+					</table>
+				</#list>
+			</#if>
+			<@lpager total=totalPage index=page url=pageUrl />
+		</div>
+		<!-- 尾部 -->
+		<div class="footer">
+			<#include "/common/footer.ftl">
+		</div> 
 	</div>
-	<div class="main">
-			
-			<div class="pointswrap">
-
-				<div class="leftpoint">
-					<p>点名册列表</p>
-				</div>
-			</div>	
-			<div class="goodslist">
-				<table class="goodstable">
-					<#if rollBooks?? && rollBooks?size &gt; 0>
-						<#list rollBooks as rollBook>
-							<tr>
-								<td class="goodinfo">${rollBook.name}</td>
-								<td class="goodinfo"><a href="/rollbook/start?wx=${wx}&rid=${rollBook.id}">开始点名</a></td>
-								<td class="goodinfo"><a href="/rollbook/rolllist?wx=${wx}&rid=${rollBook.id}">点名记录</a></td>
-							</tr>
-						</#list>
-					</#if>
-				</table>
-				<@lpager total=totalPage index=page url=pageUrl />
-			</div>
-	</div>
-</div>
-<div class="footer">
-	<#include "/common/footer.ftl">
-</div>
+	
 </body>
 </html>

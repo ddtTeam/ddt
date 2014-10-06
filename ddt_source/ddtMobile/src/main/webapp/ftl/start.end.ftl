@@ -1,51 +1,57 @@
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
-<!--强制让文档的宽度与设备的宽度保持1:1，并且文档最大的宽度比例是1.0，且不允许用户点击屏幕放大浏览；-->
-<meta content="width=320px, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
-<!--iphone设备中的safari私有meta标签，它表示：允许全屏模式浏览；-->
-<meta content="yes" name="apple-mobile-web-app-capable" />
-<!--iphone设备中的safari私有meta标签，它指定的iphone中safari顶端的状态条的样式；-->
-<meta content="black" name="apple-mobile-web-app-status-bar-style" />
-<!--告诉设备忽略将页面中的数字识别为电话号码-->
-<meta content="telephone=no" name="format-detection" />
-<link type="text/css" rel="stylesheet" href="/css/main.css"  />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<!-- 忽略将数字变为电话号码： -->
+	<meta content="telephone=no" name="format-detection">
+	<!-- IOS中Safari允许全屏浏览： -->
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<!-- IOS中Safari顶端状态条样式： -->
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<link rel="stylesheet" href="/css/startNamed.css">
+	<link rel="stylesheet" href="/css/import.css">
+	<link rel="stylesheet" href="/css/icon.css">
+	<title>开始点名</title>
 </head>
 <body>
-<div class="wrap">
-	<div class="header">
-		<div class="banner"></div>
-	</div>
-	<div class="main">
-			<div class="pointswrap">
-
-				<div class="leftpoint">
-					<p>
-						<#if flag == 0>
-						开始
-						<#else>
-						结束
-						</#if>
-						本次点名
-					</p>
-				</div>
-			</div>	
-			<div class="goodslist">
-				<#if msg?? && msg != "">
-					${msg!''}
-				<#else>
-					<#if flag == 0>
-						您与${info.rollStartTime?string('yyyy-MM-dd HH:mm:ss')}开始对${book.name!''}点名，请将随机码：${info.rollCode!''}告知“被点名人”
-					<#else>
-						您与${info.rollEndTime?string('yyyy-MM-dd HH:mm:ss')}结束对${book.name!''}点名
-					</#if>
-				</#if>
+	<div id="wrap">
+		<!-- 头部 -->
+		<div class="header">
+			<#include "/common/header.ftl">
+		</div>
+		<!-- 中间部分 -->
+		<div id="all-content">
+			<div class="main">
+				<table class="nametable">
+					<tr class="image">
+						<td  width=100%>
+							<img src="/images/image2.jpg" alt="">
+						</td>
+					</tr>
+					<tr class="content">
+						<td>
+							<p>
+								<#if msg?? && msg != "">
+									${msg!''}
+								<#else>
+									<#if flag == 0>
+										您与<span class="date">${info.rollStartTime?string('yyyy-MM-dd HH:mm:ss')}</span>开始对<span class="date">${book.name!''}</span>点名，请将随机码<span class="date">${info.rollCode!''}</span>告知被点名人,建议<span class="date">30</span>秒内关闭此次点名。
+									<#else>
+										您与<span class="date">${info.rollEndTime?string('yyyy-MM-dd HH:mm:ss')}</span>结束对<span class="date">${book.name!''}</span>点名
+									</#if>
+								</#if>
+							</p>
+						</td>
+					</tr>
+				</table>
 			</div>
+		</div>	
+
+		<div class="footer">
+			<#include "/common/footer.ftl">
+		</div>  
 	</div>
-</div>
-<div class="footer">
-	<#include "/common/footer.ftl">
-</div>
 </body>
 </html>

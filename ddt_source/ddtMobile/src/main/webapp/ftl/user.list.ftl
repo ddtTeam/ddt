@@ -1,20 +1,22 @@
-<html>
 <#include "/common/pager.ftl">
+<!doctype html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
-<!--强制让文档的宽度与设备的宽度保持1:1，并且文档最大的宽度比例是1.0，且不允许用户点击屏幕放大浏览；-->
-<meta content="width=320px, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
-<!--iphone设备中的safari私有meta标签，它表示：允许全屏模式浏览；-->
-<meta content="yes" name="apple-mobile-web-app-capable" />
-<!--iphone设备中的safari私有meta标签，它指定的iphone中safari顶端的状态条的样式；-->
-<meta content="black" name="apple-mobile-web-app-status-bar-style" />
-<!--告诉设备忽略将页面中的数字识别为电话号码-->
-<meta content="telephone=no" name="format-detection" />
-<link type="text/css" rel="stylesheet" href="/css/main.css"  />
-<link rel="stylesheet" type="text/css" href="/css/pager.css">
-<script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
-<script type="text/javascript">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<!-- 忽略将数字变为电话号码： -->
+	<meta content="telephone=no" name="format-detection">
+	<!-- IOS中Safari允许全屏浏览： -->
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<!-- IOS中Safari顶端状态条样式： -->
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<link rel="stylesheet" href="/css/student.css">
+	<link rel="stylesheet" href="/css/import.css">
+	<link rel="stylesheet" href="/css/icon.css">
+	<script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
+	<title>student</title>
+	<script type="text/javascript">
 	function showDiv(uid) {
 		$("#reason_" + uid).css("display", "block");
 		$("#remark_" + uid).css("display", "none");
@@ -34,27 +36,34 @@
 </script>
 </head>
 <body>
-<div class="wrap">
-	<div class="header">
-		<div class="banner"></div>
-	</div>
-	<div class="main">
-		<div class="pointswrap">
-			<div class="leftpoint">
-				<p>点名册用户列表,共${count}人， 其中${unrolledCount}人未参与点名</p>
+	<div id="wrap">
+		<!-- 头部 -->
+		<div class="header">
+			<#include "/common/header.ftl">
+		</div>
+		<!-- 中间部分 -->
+		<div class="content">
+			<div class="summary">
+				<p>点名册用户列表共<em>${count}</em>人，其中<em>${unrolledCount}</em>人未参与点名
+				</p>
 			</div>
-		</div>	
-		<div class="goodslist">
-			<table class="goodstable">
+			<table class="list">
 				<#if users?? && users?size &gt; 0>
 					<#list users as user>
 						<tr>
-                            <td>${user.username!''}</td>
-                            <td>${user.mobile!''}</td>
-                            <td><#if user.rollTime??>${user.rollTime?string('yyyy-MM-dd HH:mm:ss')}</#if></td>
+							<td>
+								<a href="">
+									<div class="img">
+										<img src="<#if user_index % 2 == 0>/images/boy.jpg<#else>/images/girl.jpg</#if>" alt="">
+									</div>		
+								</a>
+							</td>
+                            <td class="name">${user.username!''}</td>
+                            <td class="num">${user.mobile!''}</td>
+                            <td class="time"><#if user.rollTime??>${user.rollTime?string('yyyy-MM-dd HH:mm:ss')}</#if></td>
                             <td>${user.distance}</td>
-                            <td>${user.info!''}</td>
-                            <td>
+                            <td class="remark">${user.info!''}</td>
+                            <td class="reason">
                             	<div style="display:none" id="reason_${user.userId}">
                             		<select id="selectValue_${user.userId}">
                             			<option value="事假">事假</option>
@@ -74,10 +83,11 @@
 			</table>
 			<@lpager total=totalPage index=page url=pageUrl />
 		</div>
+		<!-- 尾部菜单 -->
+		<div class="footer">
+			<#include "/common/footer.ftl">
+		</div>  
 	</div>
-</div>
-<div class="footer">
-	<#include "/common/footer.ftl">
 </div>
 </body>
 </html>
