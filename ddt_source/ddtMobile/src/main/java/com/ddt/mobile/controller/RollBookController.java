@@ -68,7 +68,7 @@ public class RollBookController extends BaseController {
 		
 		Pagination pagination = new Pagination();
 		pagination.setPage(page);
-		
+		pagination.setLimit(8);
 		
 		List<RollBook> list = rollBookService.getRollBookList(user.getId(), "", pagination.getLimit(), pagination.getOffset());
 		int count = rollBookService.getRollBookCount(user.getId(), "");

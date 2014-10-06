@@ -51,13 +51,6 @@
 				<#if users?? && users?size &gt; 0>
 					<#list users as user>
 						<tr>
-							<td>
-								<a href="">
-									<div class="img">
-										<img src="<#if user_index % 2 == 0>/images/boy.jpg<#else>/images/girl.jpg</#if>" alt="">
-									</div>		
-								</a>
-							</td>
                             <td class="name">${user.username!''}</td>
                             <td class="num">${user.mobile!''}</td>
                             <td class="time"><#if user.rollTime??>${user.rollTime?string('yyyy-MM-dd HH:mm:ss')}</#if></td>
