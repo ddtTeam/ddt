@@ -25,6 +25,7 @@
         <if test="queryValue != null and queryValue != ''">
             AND name LIKE '%${queryValue}%'
         </if>
+        ORDER BY id DESC
         <if test="limit > 0">
             LIMIT #{offset}, #{limit}
         </if>
