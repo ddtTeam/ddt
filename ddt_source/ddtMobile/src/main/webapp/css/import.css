@@ -39,7 +39,7 @@ li{
 /* footer部分 */
 /* 尾部菜单 */
 .footer{
-	position: fixed;
+	position: relative;
 	width: 100%;
 	height: 45px;
 	bottom: -1px;
