@@ -51,6 +51,11 @@ public class RollBookController extends BaseController {
 	@Autowired
 	private UserRollInfoService userRollInfoService;
 	
+	@RequestMapping("location")
+	public ModelAndView location(HttpServletRequest request, HttpServletResponse response) {
+		return new ModelAndView("location");
+	}
+	
 	/**
 	 * 获取点名册
 	 * @param request
