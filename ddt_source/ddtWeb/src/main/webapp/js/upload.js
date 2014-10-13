@@ -10,7 +10,7 @@ $(function() {
 		file_data_name : "file",
 		multipart : true,
 		filters : [ {
-			title : "Image files",
+			title : "excel files",
 			extensions : "xls,xlsx"
 		}],
 		resize : {
