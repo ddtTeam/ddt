@@ -14,6 +14,7 @@
 	<link rel="stylesheet" href="/css/student.css">
 	<link rel="stylesheet" href="/css/import.css">
 	<link rel="stylesheet" href="/css/icon.css">
+	<link rel="stylesheet" href="/css/pager.css">
 	<script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
 	<title>student</title>
 	<script type="text/javascript">
