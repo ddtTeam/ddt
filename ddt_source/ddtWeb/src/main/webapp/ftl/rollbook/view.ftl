@@ -40,10 +40,10 @@
 				<input type="text" name="validEndDate" id="end_datepicker" onClick="WdatePicker()" value="<#if rollBook??>${rollBook.validEndTime?string('yyyy-MM-dd')}</#if>">
 			</div>
 				<div style="display:<#if rollBook?? && rollBook.id &gt; 0>none<#else>block</#if>"> 
-	                 <p class="upfile" id="container">
-	                     <input type='text' name='textfield' id='textfield' class='txt' />  
-	                     <a id="pickfile" href="javascript:void(0)">选择文件</a>
-	                 </p>
+                 <div class="upfile" id="container">
+                     <input type='text' name='textfield' id='textfield' class='txt' />  
+                     <a id="pickfile" href="javascript:void(0)">选择文件</a>
+                 </div>
                 </div>
 			<div class="submit">
 				<button type="button" id="<#if rollBook?? && rollBook.id &gt; 0>save_check<#else>uploadfile</#if>">提交</button>

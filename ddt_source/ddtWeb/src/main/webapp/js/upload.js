@@ -1,6 +1,6 @@
 $(function() {
 	var uploader = new plupload.Uploader({
-		runtimes : 'gears,html5,flash,silverlight,browserplus',
+		runtimes : 'html5,flash,silverlight,browserplus',
 		browse_button : 'pickfile',
 		container : 'container',
 		max_file_size : '10mb',
@@ -41,6 +41,7 @@ $(function() {
 		e.preventDefault();
 	});
 	uploader.init();
+	
 	uploader.bind('FilesAdded', function(up, files) {
 		$.each(files, function(i, file) {
 			$('#textfield').val(file.name);
