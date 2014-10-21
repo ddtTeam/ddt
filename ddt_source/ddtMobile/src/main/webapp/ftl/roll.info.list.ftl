@@ -24,7 +24,7 @@
 		</div>
 		<!-- 中间内容部分 -->
 		<div class="main">
-			<table class="content">
+			<table class="list">
 				<#if rollBooks?? && rollBooks?size &gt; 0>
 					<#list rollBooks as rollBook>
 						<tr class="<#if rollBook_index % 4 == 0>green<#elseif rollBook_index % 4 == 1>pink<#elseif rollBook_index % 4 == 2>yellow<#elseif rollBook_index % 4 == 3>blue</#if>">

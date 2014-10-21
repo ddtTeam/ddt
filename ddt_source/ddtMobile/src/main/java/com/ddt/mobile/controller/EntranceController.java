@@ -147,6 +147,14 @@ public class EntranceController {
 			if (content.indexOf("+") > 0) {
 				registerUser(view, user, content, fromUserName, toUserName);
 			} else {
+				//验证是否注册
+				if (!checkRegist(fromUserName)) {
+					//没有注册 返回注册页面
+					response.setCharacterEncoding("UTF-8"); 
+			        response.setContentType("text/xml");
+			        String c = ReplyUtils.get(ReplyConstants.REGISTER_TIPS);
+					return buildTextMsg(view, toUserName, fromUserName, c);
+				}
 				RollBookInfo info = rollBookInfoService.getRollBookInfoByRandCode(content);
 				if (info == null) {
 					String text = "验证码不存在！";
@@ -269,7 +277,7 @@ public class EntranceController {
 
 	private boolean checkRegist(String fromUserName) {
 		User user = userService.getWxUserByWxNumber(fromUserName);
-		if (StringUtils.isBlank(user.getMobile())) {
+		if (user == null || StringUtils.isBlank(user.getMobile())) {
 			return false;
 		}
 		return true;

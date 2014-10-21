@@ -24,7 +24,7 @@
 			<#include "/common/header.ftl">
 		</div>
 		<!-- 中间 -->
-		<div class="content">
+		<div class="main">
 			<#if rollBooks?? && rollBooks?size &gt; 0>
 				<#list rollBooks as rollBook>
 					<table class="list">

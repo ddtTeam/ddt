@@ -43,7 +43,7 @@
 			<#include "/common/header.ftl">
 		</div>
 		<!-- 中间部分 -->
-		<div class="content">
+		<div class="main">
 			<div class="summary">
 				<p>点名册用户列表共<em>${count}</em>人，其中<em>${unrolledCount}</em>人未参与点名
 				</p>
