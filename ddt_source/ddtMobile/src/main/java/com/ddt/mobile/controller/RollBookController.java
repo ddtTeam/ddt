@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ddt.core.bean.Pagination;
@@ -138,11 +139,8 @@ public class RollBookController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping("/bind")
-	public ModelAndView bind(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView bind(HttpServletRequest request, @RequestParam(value="infoId") long infoId, @RequestParam(value="wx") String wx) {
 		//微信用户
-		String wx = StringUtils.trim(ServletRequestUtils.getStringParameter(request, "wx", ""));
-		long infoId = ServletRequestUtils.getLongParameter(request, "infoId", 0);
-		
 		User user = userService.getUserByWxNumber(wx);
 		
 		boolean needReplace = true;
@@ -154,7 +152,7 @@ public class RollBookController extends BaseController {
 		UserRollInfo userRollInfo = userRollInfoService.getUserRollInfoByIds(infoId, user.getId());
 		
 		if (userRollInfo != null && userRollInfo.getRollTime() != null) {
-			return userRolled(request, response);
+			return userRolled(request, infoId, wx);
 		}
 		
 		//获取点名册关联用户
@@ -179,7 +177,7 @@ public class RollBookController extends BaseController {
 			
 			userService.deleteUserById(u.getId());
 		}
-		return userRolled(request, response);
+		return userRolled(request, infoId, wx);
 	}
 	
 	/**
@@ -189,11 +187,9 @@ public class RollBookController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping("/userRolled")
-	public ModelAndView userRolled(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView userRolled(HttpServletRequest request, @RequestParam(value="infoId") long infoId, @RequestParam(value="wx") String wx) {
 		ModelAndView view = new ModelAndView("info");
 		
-		long infoId = ServletRequestUtils.getLongParameter(request, "infoId", 0);
-		String wx = StringUtils.trim(ServletRequestUtils.getStringParameter(request, "wx", ""));
 		User user = userService.getUserByWxNumber(wx);
 		long userId = user.getId();
 		
