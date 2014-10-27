@@ -45,9 +45,9 @@
 					<td>${book.name!''}</td>
 					<td>
 						<#if bind == 1>
-						<a href="javascript:bind(${info.id}, ${userId})">绑定并点名</a>
+						<a href="/rollbook/bind?infoId=${info.id}&userId=${userId}&wx=${wx}">绑定并点名</a>
 						<#else>
-						<a href="javascript:rolled(${info.id}, ${userId})">点名</a>
+						<a href="/rollbook/userRolled?infoId=${info.id}&userId=${userId}&wx=${wx}">点名</a>
 						</#if>
 						
 					</td>
